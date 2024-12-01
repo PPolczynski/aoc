@@ -7,8 +7,8 @@ class HistorianHysteria:
         self._list_b = list_b
 
     def get_list_distance(self) -> int:
-        return sum([abs(a - b) for a, b in zip(sorted(self._list_a), sorted(self._list_b))])
+        return sum([abs(num_a - num_b) for num_a, num_b in zip(sorted(self._list_a), sorted(self._list_b))])
 
     def get_list_similarity(self) -> int:
         cnt_list_b = Counter(self._list_b)
-        return sum([num * cnt_list_b.get(num, 0) for num in self._list_a])
+        return sum([num_a * cnt_list_b.get(num_a, 0) for num_a in self._list_a])

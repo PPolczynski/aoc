@@ -10,8 +10,8 @@ if __name__ == '__main__':
             list_a.append(int(values[0]))
             list_b.append(int(values[1]))
     if len(list_a) == len(list_b):
-        hh = HistorianHysteria(list_a, list_b)
+        historian_hysteria = HistorianHysteria(list_a, list_b)
         print("What is the total distance between your lists?")
-        print(hh.get_list_distance())
+        print(historian_hysteria.get_list_distance())
         print("What is their similarity score?")
-        print(hh.get_list_similarity())
+        print(historian_hysteria.get_list_similarity())
