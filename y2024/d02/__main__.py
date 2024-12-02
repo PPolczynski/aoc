@@ -1,4 +1,4 @@
-from d02.red_nosed_reports import RedNosedReports
+from y2024.d02.red_nosed_reports import RedNosedReports
 
 if __name__ == '__main__':
     reports = []

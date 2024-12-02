@@ -1,6 +1,6 @@
 import unittest
 
-from d01.historian_hysteria import HistorianHysteria
+from y2024.d01.historian_hysteria import HistorianHysteria
 
 _list_a = [3, 4, 2, 1, 3, 3]
 _list_b = [4, 3, 5, 3, 9, 3]

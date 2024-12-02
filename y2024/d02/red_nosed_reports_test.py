@@ -1,6 +1,6 @@
 import unittest
 
-from d02.red_nosed_reports import RedNosedReports
+from y2024.d02.red_nosed_reports import RedNosedReports
 
 _example_reports = [
             [7, 6, 4, 2, 1],

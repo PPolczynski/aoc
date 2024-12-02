@@ -1,4 +1,4 @@
-from d01.historian_hysteria import HistorianHysteria
+from y2024.d01.historian_hysteria import HistorianHysteria
 
 if __name__ == '__main__':
     list_a = []
