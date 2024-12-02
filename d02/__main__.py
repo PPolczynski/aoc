@@ -9,4 +9,6 @@ if __name__ == '__main__':
             reports.append([int(level) for level in values])
     red_nosed_reports = RedNosedReports(reports)
     print("How many reports are safe?")
-    print(red_nosed_reports.get_safe_levels_count())
+    print(red_nosed_reports.get_safe_reports_count())
+    print("How many reports are now safe?")
+    print(red_nosed_reports.get_safe_reports_count_with_tolerance())

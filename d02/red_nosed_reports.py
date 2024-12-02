@@ -4,8 +4,11 @@ class RedNosedReports:
     def __init__(self, reports: list[list[int]]):
         self._reports = reports
 
-    def get_safe_levels_count(self) -> int:
+    def get_safe_reports_count(self) -> int:
         return sum([1 if self._is_report_safe(report) else 0 for report in self._reports])
+
+    def get_safe_reports_count_with_tolerance(self) -> int:
+        return sum([1 if self._is_report_safe_tolerance(report) else 0 for report in self._reports])
 
     @staticmethod
     def _is_report_safe(report: list[int]) -> bool:
@@ -19,3 +22,8 @@ class RedNosedReports:
                 return False
             previous = level
         return True
+
+    @staticmethod
+    def _is_report_safe_tolerance(report: list[int]) -> bool:
+        return (RedNosedReports._is_report_safe(report)
+                or any([RedNosedReports._is_report_safe(report[:i] + report[i + 1:]) for i, _ in enumerate(report)]))
