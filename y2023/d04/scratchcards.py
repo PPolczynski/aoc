@@ -22,17 +22,16 @@ class Scratchcards:
             card_id, card_numbers, wining_numbers = Scratchcards._get_lists_from_scratchcard(scratchcard)
             winning_cnt = len(set(card_numbers).intersection(set(wining_numbers)))
             pre_processed_cards[card_id] = winning_cnt
-        card_ids = deque(range(1, last_scratch_card_id + 1))
-        cnt = 0
-        while card_ids:
-            cnt += 1
-            card_id = card_ids.popleft()
+        cards = {}
+        for card_id in range(1, last_scratch_card_id + 1):
+            if card_id not in cards:
+                cards[card_id] = 1
             score = pre_processed_cards[card_id]
             offset = 0
             while offset < score and (card_id + 1) < last_scratch_card_id:
                 offset += 1
-                card_ids.append(card_id + offset)
-        return cnt
+                cards[card_id + offset] = cards.get(card_id + offset, 1) + cards[card_id]
+        return sum(cards.values())
 
     @staticmethod
     def _get_lists_from_scratchcard(scratchcard: str) -> tuple[int, list[int], list[int]]:
