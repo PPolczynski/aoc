@@ -1,6 +1,4 @@
 import re
-from collections import deque
-
 
 class Scratchcards:
 
