@@ -15,7 +15,7 @@ class CeresSearch:
             for column_id, char in enumerate(rows[:]):
                 if char == word[0]:
                     for direction in _adjacent_fields:
-                        if self._dfs(row_id + direction[0], column_id + direction[1], direction, word, 1):
+                        if self._search_in_direction(row_id + direction[0], column_id + direction[1], direction, word, 1):
                             cnt += 1
         return cnt
 
@@ -37,7 +37,7 @@ class CeresSearch:
 
         return any([letters == combination for combination in _mas_combinations])
 
-    def _dfs(self, row_id: int, column_id: int, direction : tuple[int, int], word :str, char_idx :int ) -> bool:
+    def _search_in_direction(self, row_id: int, column_id: int, direction : tuple[int, int], word :str, char_idx :int) -> bool:
         if char_idx >= len(word):
             return True
         elif self._is_out_of_bounds(row_id, column_id):
@@ -45,7 +45,7 @@ class CeresSearch:
         elif self._puzzle[row_id][column_id] != word[char_idx]:
             return False
         else:
-            return self._dfs(row_id + direction[0], column_id + direction[1], direction, word, char_idx + 1)
+            return self._search_in_direction(row_id + direction[0], column_id + direction[1], direction, word, char_idx + 1)
 
     def _is_out_of_bounds(self, row_id: int, column_id: int) -> bool:
         if 0 > column_id or column_id >= self._columns_cnt or 0 > row_id or row_id >= self._rows_cnt:
