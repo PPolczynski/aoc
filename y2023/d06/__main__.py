@@ -17,6 +17,4 @@ if __name__ == '__main__':
     races = [(int("".join(lines[0])), int("".join(lines[1])))]
     print("How many ways can you beat the record in this one much longer race?")
     start = time.time()
-    lowest = WaitForIt.get_product_ways_to_beat_time(races)
-    end = time.time()
-    print(lowest, str(end - start) + " s")
+    print(f"{WaitForIt.get_product_ways_to_beat_time(races)} time: {time.time() - start}s")
