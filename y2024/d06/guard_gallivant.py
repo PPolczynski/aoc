@@ -1,3 +1,5 @@
+from typing import Optional
+
 _guard = "^"
 _obstacle = "#"
 _initial_direction = (-1, 0)
@@ -29,8 +31,10 @@ class GuardGallivant:
         row_id, column_id = self._guard_position
         offset_r, offset_c = _initial_direction
         visited = set()
+        visited_w_direction = set()
         while True:
             visited.add((row_id, column_id))
+            visited_w_direction.add((row_id, column_id, offset_r, offset_c))
             nxt_r, nxt_c = row_id + offset_r, column_id + offset_c
             if self._is_out_of_bounds(nxt_r, nxt_c):
                 break
@@ -38,6 +42,7 @@ class GuardGallivant:
                 offset_r, offset_c = _rotations[(offset_r, offset_c)]
             else:
                 row_id, column_id = nxt_r, nxt_c
+        # self._print_path(visited_w_direction)
         return len(visited)
 
     def get_possible_loop_count(self) -> int:
@@ -71,7 +76,7 @@ class GuardGallivant:
             if self._is_out_of_bounds(nxt_r, nxt_c):
                 return False
             elif (row_id, column_id, offset_r, offset_c) in visited:
-                # self._print_loop(simulated_obstacle, visited)
+                # self._print_path(visited, simulated_obstacle)
                 return True
             elif self._maze[nxt_r][nxt_c] == _obstacle or (nxt_r, nxt_c) == simulated_obstacle:
                 offset_r, offset_c = _rotations[(offset_r, offset_c)]
@@ -79,7 +84,7 @@ class GuardGallivant:
                 visited.add((row_id, column_id, offset_r, offset_c))
                 row_id, column_id = nxt_r, nxt_c
 
-    def _print_loop(self, new_obstacle: tuple[int, int], visited: set) -> None:
+    def _print_path(self, visited: set, new_obstacle: Optional[tuple[int, int]] = None) -> None:
         out = []
         visited_dict = dict()
         for row_id, column_id, offset_r, offset_c in list(visited):
@@ -90,13 +95,15 @@ class GuardGallivant:
         for row_id, row in enumerate(self._maze):
             out.append([])
             for column_id, column in enumerate(row):
+                if (row_id, column_id) == self._guard_position:
+                    out[row_id].append("^")
                 if (row_id, column_id) == new_obstacle:
                     out[row_id].append("o")
                 elif (row_id, column_id) in visited_dict:
                     out[row_id].append(visited_dict[row_id, column_id])
                 else:
                     out[row_id].append(column)
-        print("***")
+        print("*" * self._columns_cnt)
         for row in out:
             print("".join(row))
-        print("***")
+        print("*" * self._columns_cnt)

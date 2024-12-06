@@ -16,7 +16,7 @@ maze = [
 ]
 
 class GuardGallivantTestCase(unittest.TestCase):
-    def test_get_distinct_position_count(self):
+    def test_get_guard_move_count(self):
         guard_gallivant = GuardGallivant(maze)
         self.assertEqual(guard_gallivant.get_guard_move_count(), 41)
 
