@@ -3,7 +3,7 @@ import math
 
 class SeedFertilizer:
     def __init__(self, almanac: list[str]):
-        self._seeds = [int(num) for num in almanac[0].split(": ")[1].split(" ")]
+        self._seeds = list(map(int, almanac[0].split(": ")[1].split(" ")))
 
         def get_next_map_range(start_idx) -> tuple[int, int]:
             end_idx = start_idx + 1
@@ -29,12 +29,28 @@ class SeedFertilizer:
     def get_lowest_location(self) -> int:
         return min([self._translate_seed_to_location(seed) for seed in self._seeds])
 
-    # def get_lowest_location_seed_ranges(self) -> int:
-    #     lowest_location = float('inf')
-    #     for start, length in zip(self._seeds[::2], self._seeds[1::2]):
-    #         for seed in range(start, start + length):
-    #             lowest_location = min(self._translate_seed_to_location(seed), lowest_location)
-    #     return lowest_location
+    def get_lowest_location_seed_ranges(self) -> int:
+        lowest_location = float('inf')
+        for start, length in zip(self._seeds[::2], self._seeds[1::2]):
+            out = self._translate_range_to_location((start, start + length))
+            lowest_location = min(min([start for start, _ in out]), lowest_location)
+        return lowest_location
+
+    def _translate_range_to_location(self, in_range: tuple[int, int]) -> list[tuple[int, int]]:
+        ranges = [in_range]
+        def translate(fn, in_ranges):
+            out = []
+            for r in in_ranges:
+                out += fn(r)
+            return out
+        ranges = translate(self._seed_to_soil.get_get_translated_range, ranges)
+        ranges = translate(self._soil_to_fertilizer.get_get_translated_range, ranges)
+        ranges = translate(self._fertilizer_to_water.get_get_translated_range, ranges)
+        ranges = translate(self._water_to_light.get_get_translated_range, ranges)
+        ranges = translate(self._light_to_temperature.get_get_translated_range, ranges)
+        ranges = translate(self._temperature_to_humidity.get_get_translated_range, ranges)
+        ranges = translate(self._humidity_to_location.get_get_translated_range, ranges)
+        return ranges
 
     def _translate_seed_to_location(self, seed: int) -> int:
         soil = self._seed_to_soil.get_translated(seed)
@@ -51,7 +67,7 @@ class _AlmanacMap:
         self.description = almanac_part[0].split(" ")[0]
         self._ranges = []
         for line in almanac_part[1:]:
-            to_start, from_start, elements = [int(s) for s in line.split(" ")]
+            to_start, from_start, elements = list(map(int, line.split(" ")))
             self._ranges.append((from_start, from_start + elements - 1, to_start, to_start + elements - 1))
         self._ranges.sort(key=lambda x: x[1])
         self.ranges = self._ranges
@@ -72,6 +88,29 @@ class _AlmanacMap:
             else:
                 left = mid + 1
         return value
+
+    def get_get_translated_range(self, in_range: tuple[int, int]) -> list[tuple[int, int]]:
+        in_start, in_end = in_range
+        out = []
+        if in_end < self._ranges[0][0] or in_start > self._ranges[-1][1]:
+            return [(in_start, in_end)]
+        for from_start, from_end, to_start, to_end in self._ranges:
+            if in_start <= from_end and from_start <= in_end:
+                if in_start < from_start:
+                    out.append((in_start, from_start - 1))
+                    in_start = from_start
+                offset_start = in_start - from_start
+                if in_end >= from_end:
+                    in_start = in_end - (in_end - from_end - 1)
+                    out.append((to_start + offset_start, to_end))
+                else:
+                    offset_end = from_end - in_end
+                    out.append((to_start + offset_start, to_end - offset_end))
+                    in_start = from_end
+                    break
+        if in_start <= in_end:
+            out.append((in_start, in_end))
+        return out
 
     def __str__(self) -> str:
         return self.description + ": " + ", ".join(

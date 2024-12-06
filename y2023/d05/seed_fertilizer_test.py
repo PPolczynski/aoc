@@ -44,9 +44,9 @@ class SeedFertilizerTestCase(unittest.TestCase):
         seed_fertilizer = SeedFertilizer(almanac)
         self.assertEqual(35, seed_fertilizer.get_lowest_location())
 
-    # def test_get_lowest_location_seed_ranges(self):
-    #     seed_fertilizer = SeedFertilizer(almanac)
-    #     self.assertEqual(seed_fertilizer.get_lowest_location_seed_ranges(), 46)
+    def test_get_lowest_location_seed_ranges(self):
+        seed_fertilizer = SeedFertilizer(almanac)
+        self.assertEqual(46, seed_fertilizer.get_lowest_location_seed_ranges())
 
 
 if __name__ == '__main__':

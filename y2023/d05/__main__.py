@@ -12,9 +12,6 @@ if __name__ == '__main__':
     print("What is the lowest location number that corresponds to any of the initial seed numbers?")
     end = time.time()
     print(f"{seed_fertilizer.get_lowest_location()} time: {time.time() - start}s")
-    #
-    # print("What is the lowest location number that corresponds to any of the initial seed numbers?")
-    # start = time.time()
-    # lowest = seed_fertilizer.get_lowest_location_seed_ranges()
-    # end = time.time()
-    # print(lowest, str(end - start) + " s")
+    print("What is the lowest location number that corresponds to any of the initial seed numbers?")
+    start = time.time()
+    print(f"{seed_fertilizer.get_lowest_location_seed_ranges()} time: {time.time() - start}s")
