@@ -40,5 +40,19 @@ class BridgeRepairTestCase(unittest.TestCase):
                                                     (292, [11, 6, 16, 20])])
         self.assertEqual(11387, total)
 
+    def test_get_sum_valid_found(self):
+        total = BridgeRepair.get_sum_valid_found([(190, [10, 19]), (3267, [81, 40, 27]), (83, [17, 5]),
+                                                    (156, [15, 6]), (7290, [6, 8, 6, 15]), (161011, [16, 10, 13]),
+                                                    (192, [17, 8, 14]), (21037, [9, 7, 18, 13]),
+                                                    (292, [11, 6, 16, 20])], False)
+        self.assertEqual(3749, total)
+
+    def test_get_sum_valid_found_concat(self):
+        total = BridgeRepair.get_sum_valid_found([(190, [10, 19]), (3267, [81, 40, 27]), (83, [17, 5]),
+                                                    (156, [15, 6]), (7290, [6, 8, 6, 15]), (161011, [16, 10, 13]),
+                                                    (192, [17, 8, 14]), (21037, [9, 7, 18, 13]),
+                                                    (292, [11, 6, 16, 20])], True)
+        self.assertEqual(11387, total)
+
 if __name__ == '__main__':
     unittest.main()
