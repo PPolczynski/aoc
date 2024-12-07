@@ -30,6 +30,21 @@ class HauntedWastelandTestCase(unittest.TestCase):
         haunted_wasteland2 = HauntedWasteland(lines2[2:])
         self.assertEqual(6, haunted_wasteland2.get_steps_count(lines2[0]))
 
+    def test_get_steps_count_ghost(self):
+        lines = [
+                "LR",
+                "",
+                "11A = (11B, XXX)",
+                "11B = (XXX, 11Z)",
+                "11Z = (11B, XXX)",
+                "22A = (22B, XXX)",
+                "22B = (22C, 22C)",
+                "22C = (22Z, 22Z)",
+                "22Z = (22B, 22B)",
+                "XXX = (XXX, XXX)"
+                ]
+        haunted_wasteland = HauntedWasteland(lines[2:])
+        self.assertEqual(6, haunted_wasteland.get_steps_count_ghost(lines[0]))
 
 if __name__ == '__main__':
     unittest.main()
