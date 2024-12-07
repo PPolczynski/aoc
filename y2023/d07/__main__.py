@@ -16,4 +16,4 @@ if __name__ == '__main__':
     camel_cards_jokers = CamelCards(lines, True)
     print("What are the new total winnings?")
     start = time.time()
-    print(f"{camel_cards_jokers.get_winnings()} time: {time.time() - start}s") #252558854 too high
+    print(f"{camel_cards_jokers.get_winnings()} time: {time.time() - start}s")
