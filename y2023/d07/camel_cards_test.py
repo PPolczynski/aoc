@@ -39,8 +39,19 @@ class CamelCardsTestCase(unittest.TestCase):
             "KTJJT 220",
             "QQQJA 483"
         ]
-        camel_cards = CamelCards(hands)
+        camel_cards = CamelCards(hands, False)
         self.assertEqual(6440, camel_cards.get_winnings())
+
+    def test_get_winnings_with_jokers(self):
+        hands = [
+            "32T3K 765",
+            "T55J5 684",
+            "KK677 28",
+            "KTJJT 220",
+            "QQQJA 483"
+        ]
+        camel_cards = CamelCards(hands, True)
+        self.assertEqual(5905, camel_cards.get_winnings())
 
 if __name__ == '__main__':
     unittest.main()
