@@ -83,5 +83,39 @@ class ResonantCollinearityTestCase(unittest.TestCase):
         resonant_collinearity = ResonantCollinearity(simple_map)
         self.assertEqual(14, resonant_collinearity.get_antinodes_count())
 
+    def test_get_antinodes_count_distance_simple(self):
+        simple_map = [
+            "T.........",
+            "...T......",
+            ".T........",
+            "..........",
+            "..........",
+            "..........",
+            "..........",
+            "..........",
+            "..........",
+            ".........."
+        ]
+        resonant_collinearity = ResonantCollinearity(simple_map)
+        self.assertEqual(9, resonant_collinearity.get_antinodes_count_distance_multiplier())
+
+    def test_get_antinodes_count_distance(self):
+        simple_map = [
+            "............", # ##....#....#
+            "........0...", # .#.#....0...
+            ".....0......", # ..#.#0....#.
+            ".......0....", # ..##...0....
+            "....0.......", # ....0....#..
+            "......A.....", # .#...#A....#
+            "............", # ...#..#.....
+            "............", # #....#.#....
+            "........A...", # ..#.....A...
+            ".........A..", # ....#....A..
+            "............", # .#........#.
+            "............", # ...#......##
+        ]
+        resonant_collinearity = ResonantCollinearity(simple_map)
+        self.assertEqual(34, resonant_collinearity.get_antinodes_count_distance_multiplier())
+
 if __name__ == '__main__':
     unittest.main()
