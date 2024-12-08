@@ -9,7 +9,6 @@ class Matrix:
         self.len_y = len(self._matrix[0])
         self.len_x = len(self._matrix)
 
-
     def __getitem__(self, coordinates: tuple[int, int]):
         row_id, column_id = coordinates
         return self._matrix[row_id][column_id] if not self.is_out_of_bounds(coordinates) else self._default
@@ -18,7 +17,6 @@ class Matrix:
         row_id, column_id = coordinates
         if not self.is_out_of_bounds(coordinates):
             self._matrix[row_id][column_id] = value
-
 
     def is_out_of_bounds(self, coordinates: tuple[int, int]) -> bool:
         row_id, column_id = coordinates
@@ -39,3 +37,7 @@ class Matrix:
         for row in self._matrix:
             out.append(" ".join(str(value) for value in row))
         return "\n".join(out)
+
+    @staticmethod
+    def get_empty(len_y, len_x, empty_value, default=""):
+        return Matrix([str(empty_value) * len_x] * len_y, default=default)
