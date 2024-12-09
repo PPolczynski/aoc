@@ -6,28 +6,28 @@ _moves = {
     "S" : {},
     "." : {},
     "|" : {
-        (1, 0) : (1, 0),
-        (-1, 0) : (-1, 0)
-    },
-    "-" : {
         (0, 1) : (0, 1),
         (0, -1) : (0, -1)
     },
+    "-" : {
+        (1, 0) : (1, 0),
+        (-1, 0) : (-1, 0)
+    },
     "L" : {
-        (0, -1) : (-1, 0),
-        (1, 0): (0, 1)
+        (-1, 0) : (0, -1),
+        (0, 1): (1, 0)
     },
     "J" : {
-        (0, 1) : (-1, 0),
-        (1, 0) : (0, -1)
+        (1, 0) : (0, -1),
+        (0, 1) : (-1, 0)
     },
     "7" : {
-        (0, 1) : (1, 0),
-        (-1, 0) : (0, -1)
+        (1, 0) : (0, 1),
+        (0, -1) : (-1, 0)
     },
     "F" : {
-        (0, -1) : (1, 0),
-        (-1, 0) : (0, 1)
+        (-1, 0) : (0, 1),
+        (0, -1) : (1, 0)
     }
 }
 
@@ -38,16 +38,15 @@ class PipeMaze:
         self._maze = Matrix(maze, ".")
 
     def _get_start(self) -> tuple[int, int]:
-        for row_id, rows in enumerate(self._maze):
-            for col_id, col in enumerate(rows):
-                if col == _start:
-                    return row_id, col_id
+        for value, coordinates in self._maze:
+            if value == _start:
+                return coordinates
 
     def _get_loop(self) -> tuple[set[tuple[int, int]], int] :
-        y, x = self._get_start()
-        moves = list(filter(lambda d:d in _moves[self._maze[(y + d[0], x + d[1])]], _directions))
-        cursors = list(zip([(y, x)] * len(moves), moves))
-        points = {(y, x)}
+        x, y = self._get_start()
+        moves = list(filter(lambda d:d in _moves[self._maze[(x + d[0], y + d[1])]], _directions))
+        cursors = list(zip([(x, y)] * len(moves), moves))
+        points = {(x, y)}
         cnt = 0
         looped = False
         while not looped:

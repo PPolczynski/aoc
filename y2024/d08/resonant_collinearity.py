@@ -52,20 +52,19 @@ class ResonantCollinearity:
 
     def _get_antennas_grouped_by_frequency(self):
         all_antennas = defaultdict(list)
-        for row_id, row in enumerate(self._city_map):
-            for column_id, column in enumerate(row):
-                if column != ".":
-                    all_antennas[column].append((row_id, column_id))
+        for value, coordinates in self._city_map:
+            if value != ".":
+                all_antennas[value].append(coordinates)
         return all_antennas
 
     @staticmethod
     def get_antinode(a: tuple[int, int], b: tuple[int, int], distance_multiplier: int = 2) -> tuple[int, int]:
-        y1, x1 = a
-        y2, x2 = b
+        x1, y1 = a
+        x2, y2 = b
         distance = _get_distance(x1, y1, x2, y2)
 
         def get_coordinate(c1, c2, d):
             return c1 - ((d * (c1 - c2)) / distance)
 
-        return (round(get_coordinate(y1, y2, distance_multiplier * distance)),
-                round(get_coordinate(x1, x2, distance_multiplier * distance)))
+        return (round(get_coordinate(x1, x2, distance_multiplier * distance)),
+                round(get_coordinate(y1, y2, distance_multiplier * distance)))
