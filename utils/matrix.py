@@ -25,7 +25,7 @@ class Matrix:
         return 0 > x or x >= self.len_x or 0 > y or y >= self.len_y
 
     def __iter__(self):
-        self._y = -1
+        self._y = 0
         self._x = -1
         return self
 
