@@ -24,6 +24,12 @@ class HoofIt:
                 starts.append(coordinates)
         return starts
 
+    def get_trailheads_score_distinct_paths_sum(self) -> int:
+        total = 0
+        for start in self._get_starts():
+            total += self._dfs_paths(start, -1, dict())
+        return total
+
     def _dfs(self, coordinate: tuple[int, int], previous_level: int, mem: dict) -> set:
         if self._topo.is_out_of_bounds(coordinate) or self._topo[coordinate] == _empty_space:
             return set()
@@ -38,4 +44,20 @@ class HoofIt:
                 for dx, dy in _directions:
                     reachable_ends |= self._dfs((x + dx, y + dy), int(self._topo[coordinate]), mem)
                 mem[coordinate] = reachable_ends
+            return mem[coordinate]
+
+    def _dfs_paths(self, coordinate: tuple[int, int], previous_level: int, mem: dict) -> int:
+        if self._topo.is_out_of_bounds(coordinate) or self._topo[coordinate] == _empty_space:
+            return 0
+        elif int(self._topo[coordinate]) - previous_level != 1:
+            return 0
+        elif self._topo[coordinate] == _end:
+            return 1
+        else:
+            if coordinate not in mem:
+                x, y = coordinate
+                paths = 0
+                for dx, dy in _directions:
+                    paths += self._dfs_paths((x + dx, y + dy), int(self._topo[coordinate]), mem)
+                mem[coordinate] = paths
             return mem[coordinate]
