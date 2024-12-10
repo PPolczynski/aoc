@@ -15,6 +15,7 @@ class HotSprings:
         springs, groups = record.split()
         springs = "?".join([springs for _ in range(unfold_times)])
         groups = list(map(int, groups.split(","))) * unfold_times
+        print(record)
         return HotSprings._backtrack(0, 0, 0, springs, groups)
 
     @staticmethod
@@ -45,6 +46,8 @@ class HotSprings:
                 total += HotSprings._backtrack(0, idx_s + 1, idx_r, springs, record)
             elif used == record[idx_r]:
                 total += HotSprings._backtrack(0, idx_s + 1, idx_r + 1, springs, record)
+            elif used > record[idx_r]:
+                return 0
             else:
                 total += HotSprings._backtrack(used + 1, idx_s + 1, idx_r, springs, record)
             return total
