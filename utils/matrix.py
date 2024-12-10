@@ -24,6 +24,14 @@ class Matrix:
         x, y = coordinates
         return 0 > x or x >= self.len_x or 0 > y or y >= self.len_y
 
+    def find(self, value) -> list[tuple[int, int]]:
+        coordinates = []
+        for _value, coordinate in self:
+            if value == _value:
+                coordinates.append(coordinate)
+        return coordinates
+
+
     def __iter__(self):
         self._y = 0
         self._x = -1
@@ -46,4 +54,4 @@ class Matrix:
 
     @staticmethod
     def get_empty(len_x, len_y, empty_value, default=""):
-        return Matrix([empty_value for _ in range(len_x)] * len_y, default=default)
+        return Matrix([[empty_value for _ in range(len_x)] for _ in range(len_y)], default=default)
