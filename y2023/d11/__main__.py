@@ -8,10 +8,11 @@ if __name__ == '__main__':
         for line in data_file:
             galaxy_map.append(line.rstrip())
 
-    cosmic_expansion = CosmicExpansion(galaxy_map)
+    cosmic_expansion = CosmicExpansion(galaxy_map, 2)
     print("What is the sum of these lengths?")
     start = time.time()
     print(f"{cosmic_expansion.get_galaxy_distance_sum()} time: {time.time() - start}s")
-    # print("How many tiles are enclosed by the loop?")
-    # start = time.time()
-    # print(f"{pipe_maze.get_enclosed_tile_count()} time: {time.time() - start}s")
+    cosmic_expansion = CosmicExpansion(galaxy_map, 1000000)
+    print("What is the sum of these lengths?")
+    start = time.time()
+    print(f"{cosmic_expansion.get_galaxy_distance_sum()} time: {time.time() - start}s")
