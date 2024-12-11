@@ -1,42 +1,48 @@
-from utils.matrix import Matrix
-
-
 class PointOfIncidence:
 
     @staticmethod
     def get_reflection(vulcano_map: list[str]):
-
-        row = PointOfIncidence.search_for_reflection(vulcano_map)
+        row = PointOfIncidence._search_for_reflection(vulcano_map)
         if row != -1:
             return row * 100
 
-        column_organized = []
-        for idx in range(len(vulcano_map[0])):
-            column_organized.append([])
-            for row in vulcano_map:
-                column_organized[idx].append(row[idx])
-        column_organized = ["".join(column) for column in column_organized]
-
-        column = PointOfIncidence.search_for_reflection(column_organized)
+        column_organized = list(zip(*vulcano_map))
+        column = PointOfIncidence._search_for_reflection(column_organized)
         if column != -1:
             return column
 
     @staticmethod
-    def search_for_reflection(rows) -> int:
-        l = len(rows)
-        previous = rows[0]
-        for row_idx, line in enumerate(rows[1:]):
-            if line == previous:
-                i = row_idx + 1 # as we skip 1 idx is not off by 1 from rows
-                j = 0
-                while j < i and i + j < l:
-                    if rows[i - j - 1] == rows[i + j]:
-                        j += 1
-                    else:
-                        break
-                else:
-                    return i
-            previous = line
+    def get_reflection_of_by(vulcano_map: list[str], of_by: int):
+        row = PointOfIncidence._search_for_reflection_of_by(vulcano_map, of_by)
+        if row != -1:
+            return row * 100
+
+        column_organized = list(zip(*vulcano_map))
+        column = PointOfIncidence._search_for_reflection_of_by(column_organized, of_by)
+        if column != -1:
+            return column
+
+        return 0
+
+    @staticmethod
+    def _search_for_reflection(rows) -> int:
+        for idx in range(1, len(rows)):
+            upper = rows[:idx][::-1]
+            lower = rows[idx:]
+            smaller_len = min(len(upper), len(lower))
+            if upper[:smaller_len] == lower[:smaller_len]:
+                return idx
+        return -1
+
+    @staticmethod
+    def _search_for_reflection_of_by(rows, of_by: int) -> int:
+        for idx in range(1, len(rows)):
+            upper = rows[:idx][::-1]
+            lower = rows[idx:]
+            smaller_len = min(len(upper), len(lower))
+            if sum([sum([0 if u == l else 1 for u, l in zip(u_row, l_row)])
+                    for u_row, l_row in zip(upper[:smaller_len], lower[:smaller_len])]) == of_by:
+                return idx
         return -1
 
     @staticmethod
@@ -44,4 +50,11 @@ class PointOfIncidence:
         total = 0
         for vulcano_map in vulcano_maps:
             total += PointOfIncidence.get_reflection(vulcano_map)
+        return total
+
+    @staticmethod
+    def get_reflection_sum_of_by(vulcano_maps: list[list[str]], of_by: int) -> int:
+        total = 0
+        for vulcano_map in vulcano_maps:
+            total += PointOfIncidence.get_reflection_of_by(vulcano_map, of_by)
         return total

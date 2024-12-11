@@ -1,6 +1,5 @@
 import time
 
-from y2023.d12.hot_springs import HotSprings
 from y2023.d13.point_of_incidence import PointOfIncidence
 
 if __name__ == '__main__':
@@ -18,6 +17,6 @@ if __name__ == '__main__':
     print("What number do you get after summarizing all of your notes?")
     start = time.time()
     print(f"{PointOfIncidence.get_reflection_sum(vulcano_maps)} time: {time.time() - start}s")
-    # print("What is the new sum of possible arrangement counts?")
-    # start = time.time()
-    # print(f"{HotSprings.get_arrangements_count_in_records_unfolded(records, 5)} time: {time.time() - start}s")
+    print("What number do you get after summarizing the new reflection line in each pattern in your notes?")
+    start = time.time()
+    print(f"{PointOfIncidence.get_reflection_sum_of_by(vulcano_maps, 1)} time: {time.time() - start}s")
