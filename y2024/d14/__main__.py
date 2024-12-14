@@ -13,6 +13,9 @@ if __name__ == '__main__':
     start = time.time()
     restroom_redoubt.pass_time(100)
     print(f"{restroom_redoubt.get_safety_factor()} time: {time.time() - start}s")
-    # print(" What is the fewest tokens you would have to spend to win all possible prizes?")
-    # start = time.time()
-    # print(f"{claw_contraption.get_fewest_token_to_win_with_conversion(10000000000000)} time: {time.time() - start}s")
+    restroom_redoubt = RestroomRedoubt(robots, 101, 103)
+
+    # restroom_redoubt.search_for_christmas_tree_manual()
+    # after 1000 button presses time to move to smarter solution :)
+    restroom_redoubt.search_for_christmas_tree(3)
+    # 3 is the first value for which no noise is detected

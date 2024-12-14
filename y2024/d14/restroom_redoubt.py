@@ -38,10 +38,49 @@ class RestroomRedoubt:
                     quadrants[(x_start, x_end, y_start, y_end)] += 1
         return reduce(lambda a, b: a * b, quadrants.values())
 
+    def search_for_christmas_tree_manual(self):
+        cnt = 0
+        while True:
+            self.pass_time(1)
+            cnt += 1
+            print(f"****** time passed: {cnt} ******")
+            self.print_robots()
+            is_continue = input("continue ? (any/N)")
+            if is_continue == "N":
+                break
+
+    def search_for_christmas_tree(self, min_expected_levels : int):
+        time_passed = 0
+        while True:
+            found_candidate = False
+            self.pass_time(1)
+            time_passed += 1
+            robots = set([position for position, _ in self._robots])
+            for robot in robots:
+                potential_robots = [robot]
+                level = 0
+                while level < min_expected_levels:
+                   if not all(potential_robot in robots for potential_robot in potential_robots):
+                       break #we break from while and continue for next robot
+                   next_level = set()
+                   for x, y in potential_robots:
+                       next_level.add((x - 1, y + 1))
+                       next_level.add((x, y + 1))
+                       next_level.add((x + 1, y + 1))
+                   potential_robots = list(next_level)
+                   level += 1
+                else:
+                    found_candidate = True
+                    break # we have a candidate print it
+            if found_candidate:
+                print(f"****** time passed: {time_passed} ******")
+                self.print_robots()
+                is_continue = input("continue ? (Y/any)")
+                if is_continue != "Y":
+                    break
+
     def print_robots(self):
         empty = Matrix.get_empty(self._length_x, self._length_y, ".")
         for robot in self._robots:
-             empty[robot[0]] = "1" if empty[robot[0]] == "." else str(int(empty[robot[0]]) + 1)
-        print("***")
+             empty[robot[0]] = "*"
         print(empty)
-        print("***")
