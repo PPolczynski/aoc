@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from y2023.d15.lenslibrary import LensLibrary
+from y2023.d15.lens_library import LensLibrary
 
 
 class LensLibraryTest(TestCase):
@@ -10,3 +10,7 @@ class LensLibraryTest(TestCase):
     def test_get_hash_initialization_sequence(self):
         sequence = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"
         self.assertEqual(1320, LensLibrary.get_hash_initialization_sequence(sequence))
+
+    def test_get_focusing_power_of_configuration(self):
+        sequence = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"
+        self.assertEqual(145, LensLibrary.get_focusing_power_of_configuration(sequence))
