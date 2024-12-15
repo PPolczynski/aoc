@@ -8,9 +8,9 @@ if __name__ == '__main__':
         for line in data_file:
             lines.append(line.rstrip())
 
-    print("How many stones will you have after blinking 25 times?")
+    print("Part 1:")
     start = time.time()
     print(f"{PlutonianPebbles.count_stones(lines[0], 25)} time: {time.time() - start}s")
-    print("How many stones would you have after blinking a total of 75 times?")
+    print("Part 2:")
     start = time.time()
     print(f"{PlutonianPebbles.count_stones(lines[0], 75)} time: {time.time() - start}s")

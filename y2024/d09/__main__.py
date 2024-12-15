@@ -9,9 +9,9 @@ if __name__ == '__main__':
             disk_space.append(line.rstrip())
 
     disk_fragment = DiskFragmenter(disk_space[0])
-    print("What is the resulting filesystem checksum?")
+    print("Part 1:")
     start = time.time()
     print(f"{disk_fragment.get_fragemented_checksum()} time: {time.time() - start}s")
-    print("What is the resulting filesystem checksum?")
+    print("Part 2:")
     start = time.time()
     print(f"{disk_fragment.get_fragemented_files_checksum()} time: {time.time() - start}s")

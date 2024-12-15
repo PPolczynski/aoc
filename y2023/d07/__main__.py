@@ -9,11 +9,11 @@ if __name__ == '__main__':
         for line in data_file:
             lines.append(line.rstrip())
     camel_cards = CamelCards(lines, False)
-    print("What are the total winnings?")
+    print("Part 1:")
     start = time.time()
     print(f"{camel_cards.get_winnings()} time: {time.time() - start}s")
 
     camel_cards_jokers = CamelCards(lines, True)
-    print("What are the new total winnings?")
+    print("Part2:")
     start = time.time()
     print(f"{camel_cards_jokers.get_winnings()} time: {time.time() - start}s")

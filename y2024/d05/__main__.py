@@ -1,3 +1,5 @@
+import time
+
 from y2024.d05.print_queue import PrintQueue
 
 if __name__ == '__main__':
@@ -14,7 +16,9 @@ if __name__ == '__main__':
                 print_orders.append(line.rstrip())
 
     print_queue = PrintQueue(rules)
-    print("What do you get if you add up the middle page number from those correctly-ordered updates?")
-    print(print_queue.get_correctly_ordered_middle_sum(print_orders))
-    print("What do you get if you add up the middle page numbers after correctly ordering just those updates?")
-    print(print_queue.get_incorrectly_ordered_middle_sum(print_orders))
+    print("Part 1:")
+    start = time.time()
+    print(f"{print_queue.get_correctly_ordered_middle_sum(print_orders)} time: {time.time() - start}s")
+    print("Part 2:")
+    start = time.time()
+    print(f"{print_queue.get_incorrectly_ordered_middle_sum(print_orders)} time: {time.time() - start}s")

@@ -9,10 +9,10 @@ if __name__ == '__main__':
             galaxy_map.append(line.rstrip())
 
     cosmic_expansion = CosmicExpansion(galaxy_map, 2)
-    print("What is the sum of these lengths?")
+    print("Part 1:")
     start = time.time()
     print(f"{cosmic_expansion.get_galaxy_distance_sum()} time: {time.time() - start}s")
     cosmic_expansion = CosmicExpansion(galaxy_map, 1000000)
-    print("What is the sum of these lengths?")
+    print("Part 2:")
     start = time.time()
     print(f"{cosmic_expansion.get_galaxy_distance_sum()} time: {time.time() - start}s")

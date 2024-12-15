@@ -8,9 +8,9 @@ if __name__ == '__main__':
         for line in data_file:
             records.append(line.rstrip())
 
-    print("What is the new sum of possible arrangement counts?")
+    print("Part 1:")
     start = time.time()
     print(f"{HotSprings.get_arrangements_count_in_records(records)} time: {time.time() - start}s")
-    print("What is the new sum of possible arrangement counts?")
+    print("Part 2:")
     start = time.time()
     print(f"{HotSprings.get_arrangements_count_in_records_unfolded(records, 5)} time: {time.time() - start}s")

@@ -1,3 +1,5 @@
+import time
+
 from y2024.d01.historian_hysteria import HistorianHysteria
 
 if __name__ == '__main__':
@@ -11,7 +13,9 @@ if __name__ == '__main__':
             list_b.append(int(values[1]))
     if len(list_a) == len(list_b):
         historian_hysteria = HistorianHysteria(list_a, list_b)
-        print("What is the total distance between your lists?")
-        print(historian_hysteria.get_list_distance())
-        print("What is their similarity score?")
-        print(historian_hysteria.get_list_similarity())
+        print("Part 1:")
+        start = time.time()
+        print(f"{historian_hysteria.get_list_distance()} time: {time.time() - start}s")
+        print("Part 2:")
+        start = time.time()
+        print(f"{historian_hysteria.get_list_similarity()} time: {time.time() - start}s")

@@ -9,9 +9,9 @@ if __name__ == '__main__':
             garden.append(line.rstrip())
 
     garden_groups = GardenGroups(garden)
-    print("What is the total price of fencing all regions on your map?")
+    print("Part 1:")
     start = time.time()
     print(f"{garden_groups.get_fencing_cost()} time: {time.time() - start}s")
-    print("What is the new total price of fencing all regions on your map?")
+    print("Part 2:")
     start = time.time()
     print(f"{garden_groups.get_fencing_cost_bulk()} time: {time.time() - start}s")

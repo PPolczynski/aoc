@@ -1,3 +1,5 @@
+import time
+
 from y2023.d04.scratchcards import Scratchcards
 
 if __name__ == '__main__':
@@ -5,7 +7,9 @@ if __name__ == '__main__':
     with open("data", "r") as data_file:
         for line in data_file:
             scratchcards.append(line.rstrip())
-    print("How many points are they worth in total?")
-    print(Scratchcards.get_scratchcards_score(scratchcards))
-    print("how many total scratchcards do you end up with?")
-    print(Scratchcards.get_scratchcards_count(scratchcards))
+    print("Part 1:")
+    start = time.time()
+    print(f"{Scratchcards.get_scratchcards_score(scratchcards)} time: {time.time() - start}s")
+    print("Part 2:")
+    start = time.time()
+    print(f"{Scratchcards.get_scratchcards_count(scratchcards)} time: {time.time() - start}s")

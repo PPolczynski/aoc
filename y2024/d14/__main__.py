@@ -9,12 +9,12 @@ if __name__ == '__main__':
             robots.append(line.rstrip())
 
     restroom_redoubt = RestroomRedoubt(robots, 101, 103)
-    print("What will the safety factor be after exactly 100 seconds have elapsed?")
+    print("Part 1:")
     start = time.time()
     restroom_redoubt.pass_time(100)
     print(f"{restroom_redoubt.get_safety_factor()} time: {time.time() - start}s")
     restroom_redoubt = RestroomRedoubt(robots, 101, 103)
-
+    print("Part 2:")
     # restroom_redoubt.search_for_christmas_tree_manual()
     # after 1000 button presses time to move to smarter solution :)
     restroom_redoubt.search_for_christmas_tree(3)

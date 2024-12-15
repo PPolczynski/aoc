@@ -10,11 +10,11 @@ if __name__ == '__main__':
             lines.append(re.findall("\d+", line.rstrip()))
     races = list(zip([int(x) for x in lines[0]], [int(x) for x in lines[1]]))
     wait_for_it = WaitForIt()
-    print("What do you get if you multiply these numbers together?")
+    print("Part 1:")
     start = time.time()
     print(f"{WaitForIt.get_product_ways_to_beat_time(races)} time: {time.time() - start}s")
 
     races = [(int("".join(lines[0])), int("".join(lines[1])))]
-    print("How many ways can you beat the record in this one much longer race?")
+    print("Part 2:")
     start = time.time()
     print(f"{WaitForIt.get_product_ways_to_beat_time(races)} time: {time.time() - start}s")

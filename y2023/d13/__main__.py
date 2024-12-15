@@ -14,9 +14,9 @@ if __name__ == '__main__':
             else:
                 vulcano_maps[i].append(line.rstrip())
 
-    print("What number do you get after summarizing all of your notes?")
+    print("Part 1:")
     start = time.time()
     print(f"{PointOfIncidence.get_reflection_sum(vulcano_maps)} time: {time.time() - start}s")
-    print("What number do you get after summarizing the new reflection line in each pattern in your notes?")
+    print("Part 2:")
     start = time.time()
     print(f"{PointOfIncidence.get_reflection_sum_of_by(vulcano_maps, 1)} time: {time.time() - start}s")

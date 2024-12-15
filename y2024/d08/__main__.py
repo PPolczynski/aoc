@@ -9,9 +9,9 @@ if __name__ == '__main__':
             map.append(line.rstrip())
 
     resonant_collinearity = ResonantCollinearity(map)
-    print("How many unique locations within the bounds of the map contain an antinode?")
+    print("Part 1:")
     start = time.time()
     print(f"{resonant_collinearity.get_antinodes_count()} time: {time.time() - start}s")
-    print("How many unique locations within the bounds of the map contain an antinode?")
+    print("Part 2:")
     start = time.time()
     print(f"{resonant_collinearity.get_antinodes_count_distance_multiplier()} time: {time.time() - start}s")

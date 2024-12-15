@@ -9,9 +9,9 @@ if __name__ == '__main__':
             lines.append(line.rstrip())
 
     mirage_maintenance = MirageMaintenance(lines)
-    print("What is the sum of these extrapolated values?")
+    print("Part 1:")
     start = time.time()
     print(f"{mirage_maintenance.get_extrapolated_values_sum()} time: {time.time() - start}s")
-    print("What is the sum of these extrapolated values?")
+    print("Part 2:")
     start = time.time()
     print(f"{mirage_maintenance.get_extrapolated_previous_values_sum()} time: {time.time() - start}s")

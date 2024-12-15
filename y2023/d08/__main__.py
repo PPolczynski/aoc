@@ -9,9 +9,9 @@ if __name__ == '__main__':
             lines.append(line.rstrip())
     moves, _, *graph = lines
     haunted_wasteland = HauntedWasteland(graph)
-    print("How many steps are required to reach ZZZ?")
+    print("Part 1:")
     start = time.time()
     print(f"{haunted_wasteland.get_steps_count(moves)} time: {time.time() - start}s")
-    print("How many steps does it take before you're only on nodes that end with Z?")
+    print("Part 2:")
     start = time.time()
     print(f"{haunted_wasteland.get_steps_count_ghost(moves)} time: {time.time() - start}s")

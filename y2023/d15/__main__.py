@@ -7,10 +7,10 @@ if __name__ == '__main__':
         for line in data_file:
             initialization_sequence.append(line.rstrip())
 
-    print("What is the sum of the results?")
+    print("Part 1:")
     start = time.time()
     print(f"{LensLibrary.get_hash_initialization_sequence(initialization_sequence[0])} time: {time.time() - start}s")
 
-    print("What is the focusing power of the resulting lens configuration?")
+    print("Part 2:")
     start = time.time()
     print(f"{LensLibrary.get_focusing_power_of_configuration(initialization_sequence[0])} time: {time.time() - start}s")
