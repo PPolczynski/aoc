@@ -16,7 +16,7 @@ class TestWarehouseWoes(TestCase):
             "########"
         ]
         moves = ["<^^>>>vv<v>>v<<"]
-        warehouse_woes =WarehouseWoes(warehouse)
+        warehouse_woes = WarehouseWoes(warehouse)
         warehouse_woes.apply_moves(moves)
         self.assertEqual(2028, warehouse_woes.get_boxes_coordinates_sum())
 
@@ -45,6 +45,52 @@ class TestWarehouseWoes(TestCase):
             "^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>",
             "v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^"
         ]
-        warehouse_woes =WarehouseWoes(warehouse)
+        warehouse_woes = WarehouseWoes(warehouse)
         warehouse_woes.apply_moves(moves)
         self.assertEqual(10092, warehouse_woes.get_boxes_coordinates_sum())
+
+    def test_get_boxes_coordinates_sum_wide(self):
+        warehouse = [
+            "#######",
+            "#...#.#",
+            "#.....#",
+            "#..OO@#",
+            "#..O..#",
+            "#.....#",
+            "#######"
+        ]
+        moves = [
+            "<vv<<^^<<^^"
+        ]
+        warehouse_woes = WarehouseWoes(warehouse, True)
+        warehouse_woes.apply_moves(moves)
+        self.assertEqual(618, warehouse_woes.get_boxes_coordinates_sum())
+
+    def test_get_boxes_coordinates_sum_larger_wide(self):
+        warehouse = [
+            "##########",
+            "#..O..O.O#",
+            "#......O.#",
+            "#.OO..O.O#",
+            "#..O@..O.#",
+            "#O#..O...#",
+            "#O..O..O.#",
+            "#.OO.O.OO#",
+            "#....O...#",
+            "##########",
+        ]
+        moves = [
+            "<vv>^<v^>v>^vv^v>v<>v^v<v<^vv<<<^><<><>>v<vvv<>^v^>^<<<><<v<<<v^vv^v>^",
+            "vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v",
+            "><>vv>v^v^<>><>>>><^^>vv>v<^^^>>v^v^<^^>v^^>v^<^v>v<>>v^v^<v>v^^<^^vv<",
+            "<<v<^>>^^^^>>>v^<>vvv^><v<<<>^^^vv^<vvv>^>v<^^^^v<>^>vvvv><>>v^<<^^^^^",
+            "^><^><>>><>^^<<^^v>>><^<v>^<vv>>v>>>^v><>^v><<<<v>>v<v<v>vvv>^<><<>^><",
+            "^>><>^v<><^vvv<^^<><v<<<<<><^v<<<><<<^^<v<^^^><^>>^<v^><<<^>>^v<v^v<v^",
+            ">^>>^v>vv>^<<^v<>><<><<v<<v><>v<^vv<<<>^^v^>^^>>><<^v>>v^v><^^>>^<>vv^",
+            "<><^^>^^^<><vvvvv^v<v<<>^v<v>v<<^><<><<><<<^^<<<^<<>><<><^^^>^^<>^>v<>",
+            "^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>",
+            "v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^"
+        ]
+        warehouse_woes = WarehouseWoes(warehouse, True)
+        warehouse_woes.apply_moves(moves)
+        self.assertEqual(9021, warehouse_woes.get_boxes_coordinates_sum())
