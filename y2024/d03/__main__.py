@@ -1,6 +1,6 @@
 import time
 
-from y2024.d03.mull_it_over import MullItOver
+from y2024.d03.solution import Solution
 
 if __name__ == '__main__':
     corrupted_memory = []
@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     print("Part 1:")
     start = time.time()
-    print(f"{sum([MullItOver.get_sum_of_multiplications(line) for line in corrupted_memory])} time: {time.time() - start}s")
+    print(f"{sum([Solution.get_sum_of_multiplications(line) for line in corrupted_memory])} time: {time.time() - start}s")
     print("Part 2:")
     start = time.time()
-    print(f"{MullItOver.get_sum_of_multiplications_conditional("".join(corrupted_memory))} time: {time.time() - start}s")
+    print(f"{Solution.get_sum_of_multiplications_conditional(''.join(corrupted_memory))} time: {time.time() - start}s")

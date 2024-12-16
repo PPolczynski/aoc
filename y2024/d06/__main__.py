@@ -1,6 +1,6 @@
 import time
 
-from y2024.d06.guard_gallivant import GuardGallivant
+from y2024.d06.solution import Maze
 
 if __name__ == '__main__':
     maze = []
@@ -8,7 +8,7 @@ if __name__ == '__main__':
         for line in data_file:
             maze.append(line.rstrip())
 
-    guard_gallivant = GuardGallivant(maze)
+    guard_gallivant = Maze(maze)
     print("Part 1:")
     start = time.time()
     print(f"{guard_gallivant.get_guard_move_count()} time: {time.time() - start}s")

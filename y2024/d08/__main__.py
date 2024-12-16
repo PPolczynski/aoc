@@ -1,6 +1,6 @@
 import time
 
-from y2024.d08.resonant_collinearity import ResonantCollinearity
+from y2024.d08.solution import CityMap
 
 if __name__ == '__main__':
     map = []
@@ -8,7 +8,7 @@ if __name__ == '__main__':
         for line in data_file:
             map.append(line.rstrip())
 
-    resonant_collinearity = ResonantCollinearity(map)
+    resonant_collinearity = CityMap(map)
     print("Part 1:")
     start = time.time()
     print(f"{resonant_collinearity.get_antinodes_count()} time: {time.time() - start}s")

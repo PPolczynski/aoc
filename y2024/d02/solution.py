@@ -1,6 +1,6 @@
 _MAX_DIFFERENCE = 3
 
-class RedNosedReports:
+class ReactorReports:
     def __init__(self, reports: list[list[int]]):
         self._reports = reports
 
@@ -25,5 +25,5 @@ class RedNosedReports:
 
     @staticmethod
     def _is_report_safe_tolerance(report: list[int]) -> bool:
-        return (RedNosedReports._is_report_safe(report)
-                or any([RedNosedReports._is_report_safe(report[:i] + report[i + 1:]) for i, _ in enumerate(report)]))
+        return (ReactorReports._is_report_safe(report)
+                or any([ReactorReports._is_report_safe(report[:i] + report[i + 1:]) for i, _ in enumerate(report)]))

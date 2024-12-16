@@ -4,11 +4,11 @@ _mul_instruction_pattern = "mul\(\d+,\d+\)"
 _enable_instruction = "do()"
 _disable_instruction = "don't()"
 
-class MullItOver:
+class Solution:
     @staticmethod
     def get_sum_of_multiplications(corrupted_memory: str) -> int:
-        return sum([MullItOver._resolve_mul_instruction(instruction)
-                    for instruction in MullItOver._get_multiplication_instructions(corrupted_memory)])
+        return sum([Solution._resolve_mul_instruction(instruction)
+                    for instruction in Solution._get_multiplication_instructions(corrupted_memory)])
 
     @staticmethod
     def _get_multiplication_instructions(corrupted_memory: str) -> list[str]:
@@ -17,7 +17,7 @@ class MullItOver:
 
     @staticmethod
     def _resolve_mul_instruction(instruction: str) -> int:
-        a, b = MullItOver._get_numbers_from_multiplication_instructions(instruction)
+        a, b = Solution._get_numbers_from_multiplication_instructions(instruction)
         return a * b
 
     @staticmethod
@@ -28,9 +28,9 @@ class MullItOver:
     @staticmethod
     def get_sum_of_multiplications_conditional(corrupted_memory: str) -> int:
         sum_multiplications = 0
-        for enabled_memory in MullItOver._get_enabled_memory_parts(corrupted_memory):
-            for instruction in MullItOver._get_multiplication_instructions(enabled_memory):
-                sum_multiplications += MullItOver._resolve_mul_instruction(instruction)
+        for enabled_memory in Solution._get_enabled_memory_parts(corrupted_memory):
+            for instruction in Solution._get_multiplication_instructions(enabled_memory):
+                sum_multiplications += Solution._resolve_mul_instruction(instruction)
         return sum_multiplications
 
     @staticmethod

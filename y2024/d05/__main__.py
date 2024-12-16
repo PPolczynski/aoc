@@ -1,6 +1,6 @@
 import time
 
-from y2024.d05.print_queue import PrintQueue
+from y2024.d05.solution import Printer
 
 if __name__ == '__main__':
     rules = []
@@ -15,7 +15,7 @@ if __name__ == '__main__':
             else:
                 print_orders.append(line.rstrip())
 
-    print_queue = PrintQueue(rules)
+    print_queue = Printer(rules)
     print("Part 1:")
     start = time.time()
     print(f"{print_queue.get_correctly_ordered_middle_sum(print_orders)} time: {time.time() - start}s")

@@ -4,7 +4,7 @@ _max_button_press = 100
 _a_press_price = 3
 _b_press_price = 1
 
-class ClawContraption:
+class ClawGame:
     def __init__(self, machines: list[list[str]]):
         self._machines = [ClawMachine(machine, _a_press_price, _b_press_price, _max_button_press) for machine in machines]
 

@@ -10,7 +10,7 @@ _rotations = {
     (0, -1): (-1, 0)
 }
 
-class GuardGallivant:
+class Maze:
     def __init__(self, maze: list[str]):
         self._maze = maze
         self._rows_cnt = len(maze)

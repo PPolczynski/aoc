@@ -1,6 +1,6 @@
 import time
 
-from y2024.d10.hoof_it import HoofIt
+from y2024.d10.solution import TopographicMap
 
 if __name__ == '__main__':
     topo = []
@@ -8,7 +8,7 @@ if __name__ == '__main__':
         for line in data_file:
             topo.append(line.rstrip())
 
-    hoof_it = HoofIt(topo)
+    hoof_it = TopographicMap(topo)
     print("Part 1:")
     start = time.time()
     print(f"{hoof_it.get_trailheads_score_sum()} time: {time.time() - start}s")

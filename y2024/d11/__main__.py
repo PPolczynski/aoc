@@ -1,6 +1,6 @@
 import time
 
-from y2024.d11.plutonian_pebbles import PlutonianPebbles
+from y2024.d11.solution import BlinkingStones
 
 if __name__ == '__main__':
     lines = []
@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     print("Part 1:")
     start = time.time()
-    print(f"{PlutonianPebbles.count_stones(lines[0], 25)} time: {time.time() - start}s")
+    print(f"{BlinkingStones.count_stones(lines[0], 25)} time: {time.time() - start}s")
     print("Part 2:")
     start = time.time()
-    print(f"{PlutonianPebbles.count_stones(lines[0], 75)} time: {time.time() - start}s")
+    print(f"{BlinkingStones.count_stones(lines[0], 75)} time: {time.time() - start}s")

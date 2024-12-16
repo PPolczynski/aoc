@@ -1,6 +1,6 @@
 import time
 
-from y2024.d02.red_nosed_reports import RedNosedReports
+from y2024.d02.solution import ReactorReports
 
 if __name__ == '__main__':
     reports = []
@@ -9,7 +9,7 @@ if __name__ == '__main__':
         for line in data_file:
             values = line.rstrip().split(split_characters)
             reports.append([int(level) for level in values])
-    red_nosed_reports = RedNosedReports(reports)
+    red_nosed_reports = ReactorReports(reports)
     print("Part 1:")
     start = time.time()
     print(f"{red_nosed_reports.get_safe_reports_count()} time: {time.time() - start}s")

@@ -1,6 +1,6 @@
 import time
 
-from y2024.d13.claw_contraption import ClawContraption
+from y2024.d13.solution import ClawGame
 
 if __name__ == '__main__':
     machines = []
@@ -14,7 +14,7 @@ if __name__ == '__main__':
             else:
                 machines[i].append(line.rstrip())
 
-    claw_contraption = ClawContraption(machines)
+    claw_contraption = ClawGame(machines)
     print("Part 1:")
     start = time.time()
     print(f"{claw_contraption.get_fewest_token_to_win()} time: {time.time() - start}s")

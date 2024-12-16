@@ -1,13 +1,10 @@
-from collections import deque
-
-
-class PlutonianPebbles:
+class BlinkingStones:
     @staticmethod
     def count_stones(stones: str, number_of_blinks: int) -> int:
         total = 0
         mem = dict()
         for stone in stones.split(" "):
-            total += PlutonianPebbles._blink_stone(stone, number_of_blinks, mem)
+            total += BlinkingStones._blink_stone(stone, number_of_blinks, mem)
         return total
 
     @staticmethod
@@ -19,15 +16,15 @@ class PlutonianPebbles:
             new_stones =  1
         else:
             if stone == "0":
-                new_stones = PlutonianPebbles._blink_stone("1", number_of_blinks - 1, mem)
+                new_stones = BlinkingStones._blink_stone("1", number_of_blinks - 1, mem)
             elif len(stone) % 2 == 0:
                 mid = len(stone) // 2
                 left_half = stone[:mid]
                 right_half = stone[mid:].lstrip("0")
-                new_stones =  (PlutonianPebbles._blink_stone(left_half, number_of_blinks - 1, mem)
-                        + PlutonianPebbles._blink_stone(right_half if len(right_half) else "0", number_of_blinks - 1, mem))
+                new_stones =  (BlinkingStones._blink_stone(left_half, number_of_blinks - 1, mem)
+                               + BlinkingStones._blink_stone(right_half if len(right_half) else "0", number_of_blinks - 1, mem))
             else:
-                new_stones = PlutonianPebbles._blink_stone(str(int(stone) * 2024), number_of_blinks - 1, mem)
+                new_stones = BlinkingStones._blink_stone(str(int(stone) * 2024), number_of_blinks - 1, mem)
         if stone in mem:
             mem[stone][number_of_blinks] = new_stones
         else:

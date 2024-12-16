@@ -6,7 +6,7 @@ from utils.matrix import Matrix
 def _get_distance(x1: int, y1: int, x2: int, y2: int):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
-class ResonantCollinearity:
+class CityMap:
     def __init__(self, city_map: list[str]):
         self._city_map = Matrix(city_map)
     
@@ -22,7 +22,7 @@ class ResonantCollinearity:
                 for j, other in enumerate(antennas):
                     if i == j:
                         continue
-                    antinode = ResonantCollinearity.get_antinode(antenna, other)
+                    antinode = CityMap.get_antinode(antenna, other)
                     if not self._city_map.is_out_of_bounds(antinode):
                         antinodes.add(antinode)
         return len(antinodes)
@@ -42,7 +42,7 @@ class ResonantCollinearity:
                     antinodes.add(other) #other antenna is always a antinode
                     multiplier = 2
                     while True:
-                        antinode = ResonantCollinearity.get_antinode(antenna, other, multiplier)
+                        antinode = CityMap.get_antinode(antenna, other, multiplier)
                         if not self._city_map.is_out_of_bounds(antinode):
                             antinodes.add(antinode)
                             multiplier += 1

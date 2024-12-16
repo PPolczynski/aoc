@@ -5,7 +5,7 @@ from functools import reduce
 from utils.matrix import Matrix
 
 
-class RestroomRedoubt:
+class Robots:
     def __init__(self, robots: list[str], length_x: int, length_y: int):
         self._robots = [
             (tuple(map(int, re.findall("\d+", position))),

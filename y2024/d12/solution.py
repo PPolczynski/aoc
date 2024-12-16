@@ -3,7 +3,7 @@ from utils.matrix import Matrix
 _directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 _edge_offset = [(0.5, -0.5), (0.5, 0.5), (-0.5, 0.5), (-0.5, -0.5)]
 
-class GardenGroups:
+class Garden:
     def __init__(self, garden: list[str]):
         self.garden = Matrix(garden)
 

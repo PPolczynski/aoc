@@ -3,7 +3,7 @@ _diagonal_adjacent_fields = [(-1, 1), (1, 1),(1, -1), (-1, -1)]
 _mas_combinations = ["MMSS", "SMMS", "SSMM", "MSSM"]
 _x_mas_center = "A"
 
-class CeresSearch:
+class WordPuzzle:
     def __init__(self, puzzle: list[str]):
         self._puzzle = puzzle
         self._rows_cnt = len(puzzle)

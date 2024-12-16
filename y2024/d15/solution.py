@@ -23,7 +23,7 @@ _wider = {
     "#" : "##"
 }
 
-class WarehouseWoes:
+class Warehouse:
     def __init__(self, warehouse: list[str],  is_wide: bool = False):
         wide_warehouse = []
         if is_wide:

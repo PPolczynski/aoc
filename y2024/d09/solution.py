@@ -2,7 +2,7 @@ from utils.linked_list_node import LinkedListNode
 
 _empty_space = "."
 
-class DiskFragmenter:
+class DiskSpace:
 
     def __init__(self, disk_space_sizes: str):
         self._sizes = list(map(int, disk_space_sizes[:]))

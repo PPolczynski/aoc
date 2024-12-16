@@ -1,6 +1,6 @@
 import time
 
-from y2024.d07.bridge_repair import BridgeRepair
+from y2024.d07.solution import Solution
 
 if __name__ == '__main__':
     data = []
@@ -9,7 +9,7 @@ if __name__ == '__main__':
             target, values = line.rstrip().split(": ")
             data.append((int(target), list(map(int, values.split(" ")))))
 
-    bridge_repair = BridgeRepair()
+    bridge_repair = Solution()
     print("Part 1:")
     start = time.time()
     print(f"{bridge_repair.get_sum_valid_targets(data)} time: {time.time() - start}s")

@@ -3,7 +3,7 @@ class Node:
         self.next = set()
         self.prev = set()
 
-class PrintQueue:
+class Printer:
     def __init__(self, printer_configuration: list[str]):
         config = dict()
         for configuration in printer_configuration:

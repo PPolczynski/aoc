@@ -1,7 +1,7 @@
 from collections import Counter
 
 
-class HistorianHysteria:
+class Locations:
     def __init__(self, list_a: list[int], list_b: list[int]):
         self._list_a = list_a
         self._list_b = list_b

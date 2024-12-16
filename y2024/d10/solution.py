@@ -5,8 +5,7 @@ _start = "0"
 _end = "9"
 _directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
-class HoofIt:
-
+class TopographicMap:
     def __init__(self, topographic_map: list[str]):
         self._topo = Matrix(topographic_map)
 

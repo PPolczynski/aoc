@@ -1,6 +1,6 @@
 import time
 
-from y2024.d09.disk_fragmenter import DiskFragmenter
+from y2024.d09.solution import DiskSpace
 
 if __name__ == '__main__':
     disk_space = []
@@ -8,7 +8,7 @@ if __name__ == '__main__':
         for line in data_file:
             disk_space.append(line.rstrip())
 
-    disk_fragment = DiskFragmenter(disk_space[0])
+    disk_fragment = DiskSpace(disk_space[0])
     print("Part 1:")
     start = time.time()
     print(f"{disk_fragment.get_fragemented_checksum()} time: {time.time() - start}s")

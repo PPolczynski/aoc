@@ -1,6 +1,6 @@
 import time
 
-from y2024.d15.warehouse_woes import WarehouseWoes
+from y2024.d15.solution import Warehouse
 
 if __name__ == '__main__':
     warehouse_moves = []
@@ -15,12 +15,12 @@ if __name__ == '__main__':
                 warehouse_moves[i].append(line.rstrip())
 
     warehouse, moves = warehouse_moves
-    warehouse_woes = WarehouseWoes(warehouse)
+    warehouse_woes = Warehouse(warehouse)
     print("Part 1:")
     start = time.time()
     warehouse_woes.apply_moves(moves)
     print(f"{warehouse_woes.get_boxes_coordinates_sum()} time: {time.time() - start}s")
-    warehouse_woes = WarehouseWoes(warehouse, True)
+    warehouse_woes = Warehouse(warehouse, True)
     print("Part 2:")
     start = time.time()
     warehouse_woes.apply_moves(moves)
