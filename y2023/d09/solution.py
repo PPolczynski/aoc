@@ -1,4 +1,4 @@
-class MirageMaintenance:
+class Sensor:
     def __init__(self, lines: list[str]):
         reports = [Report(list(map(int, line.split(" ")))) for line in lines]
         self._reports = reports

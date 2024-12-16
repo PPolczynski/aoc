@@ -2,29 +2,29 @@ _working = "."
 _damaged = "#"
 _unknown = "?"
 
-class HotSprings:
+class Solution:
 
     @staticmethod
     def get_arrangements_count(record: str) -> int:
         springs, groups = record.split()
         groups = list(map(int, groups.split(",")))
-        return HotSprings._backtrack(0, 0, 0, springs, groups, dict())
+        return Solution._backtrack(0, 0, 0, springs, groups, dict())
 
     @staticmethod
     def get_arrangements_count_unfolded(record: str, unfold_times: int) -> int:
         springs, groups = record.split()
         springs = _unknown.join([springs for _ in range(unfold_times)])
         groups = list(map(int, groups.split(","))) * unfold_times
-        result = HotSprings._backtrack(0, 0, 0, springs, groups, dict())
+        result = Solution._backtrack(0, 0, 0, springs, groups, dict())
         return result
 
     @staticmethod
     def get_arrangements_count_in_records(records: list[str])  -> int:
-        return sum([HotSprings.get_arrangements_count(record) for record in records])
+        return sum([Solution.get_arrangements_count(record) for record in records])
 
     @staticmethod
     def get_arrangements_count_in_records_unfolded(records: list[str], unfold_times: int) -> int:
-        return sum([HotSprings.get_arrangements_count_unfolded(record, unfold_times) for record in records])
+        return sum([Solution.get_arrangements_count_unfolded(record, unfold_times) for record in records])
 
     @staticmethod
     def _backtrack(current_group: int, idx_s: int, idx_r: int, springs: str, groups: list[int], mem: dict) -> int:
@@ -41,27 +41,27 @@ class HotSprings:
             # if current group is empty go forward else check if ended group is valid
             if current_group == 0:
                 mem[(idx_r, idx_s, current_group)] = (
-                    HotSprings._backtrack(0, idx_s + 1, idx_r, springs, groups, mem))
+                    Solution._backtrack(0, idx_s + 1, idx_r, springs, groups, mem))
             else:
                 mem[(idx_r, idx_s, current_group)] = (
-                    HotSprings._backtrack(0, idx_s + 1, idx_r + 1, springs, groups, mem)) \
+                    Solution._backtrack(0, idx_s + 1, idx_r + 1, springs, groups, mem)) \
                     if current_group == groups[idx_r] else 0
         elif springs[idx_s] == _damaged:
             mem[(idx_r, idx_s, current_group)] = (
-                HotSprings._backtrack(current_group + 1, idx_s + 1, idx_r, springs, groups, mem))
+                Solution._backtrack(current_group + 1, idx_s + 1, idx_r, springs, groups, mem))
         else: # Unknown
             total = 0
             if current_group == 0:
                 if idx_s == 0 or springs[idx_s - 1] != _damaged:
                     #cannot start a group after without at least one . in between
                     #if previous ? and current_group = 0 meaning . was taken
-                    total += HotSprings._backtrack(1, idx_s + 1, idx_r, springs, groups, mem)
-                total += HotSprings._backtrack(0, idx_s + 1, idx_r, springs, groups, mem)
+                    total += Solution._backtrack(1, idx_s + 1, idx_r, springs, groups, mem)
+                total += Solution._backtrack(0, idx_s + 1, idx_r, springs, groups, mem)
             elif current_group == groups[idx_r]:
-                total += HotSprings._backtrack(0, idx_s + 1, idx_r + 1, springs, groups, mem)
+                total += Solution._backtrack(0, idx_s + 1, idx_r + 1, springs, groups, mem)
             elif current_group > groups[idx_r]:
                 mem[(idx_r, idx_s, current_group)] = 0
             else:
-                total += HotSprings._backtrack(current_group + 1, idx_s + 1, idx_r, springs, groups, mem)
+                total += Solution._backtrack(current_group + 1, idx_s + 1, idx_r, springs, groups, mem)
             mem[(idx_r, idx_s, current_group)] = total
         return  mem[(idx_r, idx_s, current_group)]

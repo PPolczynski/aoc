@@ -1,4 +1,4 @@
-class CubeConundrum:
+class CubeGame:
     def __init__(self, cubes: list[tuple[str, int]]):
         self._cubes = dict()
         for color, cnt in cubes:

@@ -1,6 +1,6 @@
 import time
 
-from y2023.d01.trebuchet import Trebuchet
+from y2023.d01.solution import Trebuchet
 
 if __name__ == '__main__':
     document = []

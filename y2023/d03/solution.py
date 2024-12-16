@@ -3,7 +3,7 @@ _gear_symbol = "*"
 _adjacent_fields = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
 _adjacent_numbers_cnt_gear_ration = 2
 
-class GearRatios:
+class GearSchematic:
     def __init__(self, schematic: list[str]):
         self._schematic = schematic
         self._rows_cnt = len(self._schematic)

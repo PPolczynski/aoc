@@ -3,7 +3,7 @@ from utils.matrix import Matrix
 _single_rock = "O"
 _empty_space = "."
 
-class ParabolicReflectorDish:
+class Reflector:
     def __init__(self, platform: list[str]):
         self._platform = Matrix(platform)
 

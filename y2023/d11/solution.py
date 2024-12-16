@@ -2,7 +2,7 @@ from utils.matrix import Matrix
 
 _galaxy = "#"
 
-class CosmicExpansion:
+class GalaxyMap:
     def __init__(self, galaxy_map: list[str], extension_rate: int):
         self._galaxy_map = Matrix(galaxy_map)
         self._row_to_expand, self._column_to_expand = self._get_galaxy_map_extensions(galaxy_map)

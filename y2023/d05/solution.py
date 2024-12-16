@@ -1,7 +1,7 @@
 import math
 
 
-class SeedFertilizer:
+class Almanac:
     def __init__(self, almanac: list[str]):
         self._seeds = list(map(int, almanac[0].split(": ")[1].split(" ")))
 

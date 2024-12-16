@@ -39,7 +39,7 @@ strength_map = {
     "11111": HandStrength.HIGH_CARD
 }
 
-class CamelCards:
+class CardGame:
     def __init__(self, hands: list[str], is_with_jokers: bool):
         self._hands = []
         for hand in hands:

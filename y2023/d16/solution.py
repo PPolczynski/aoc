@@ -35,7 +35,7 @@ _directions = {
     }
 }
 
-class TheFloorWillBeLava:
+class Contraption:
     def __init__(self, _contraption):
         self._contraption = Matrix(_contraption)
 

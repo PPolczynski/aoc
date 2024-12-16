@@ -10,7 +10,7 @@ _target = "ZZZ"
 _ghost_start = "A"
 _ghost_end = "Z"
 
-class HauntedWasteland:
+class IslandMap:
     def __init__(self, lines: list[str]):
         graph = dict()
         ghost_start = []

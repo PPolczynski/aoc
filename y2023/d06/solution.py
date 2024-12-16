@@ -1,18 +1,17 @@
 import math
-from math import isqrt
 
 
-class WaitForIt:
+class Solution:
     @staticmethod
     def get_product_ways_to_beat_time(races: list[tuple[int, int]]) -> int:
         product = 1
         for race_time, record in races:
-            product *= WaitForIt.ways_to_beat_time(race_time, record)
+            product *= Solution.ways_to_beat_time(race_time, record)
         return product
 
     @staticmethod
     def ways_to_beat_time(race_time, distance) ->int:
-        x1, x2 = WaitForIt._get_zero_points(race_time, distance)
+        x1, x2 = Solution._get_zero_points(race_time, distance)
         return math.ceil(x2) - math.floor(x1) - 1
 
     @staticmethod
@@ -25,7 +24,7 @@ class WaitForIt:
 
     @staticmethod
     def _get_zero_points(race_time, distance) -> tuple[float, float]:
-        delta = WaitForIt._get_delta(race_time, distance)
+        delta = Solution._get_delta(race_time, distance)
         sqrt_delta = math.sqrt(delta)
         x1 = (-1 * race_time + sqrt_delta) / (-1 * 2)
         x2 = (-1 * race_time - sqrt_delta) / (-1 * 2)

@@ -1,17 +1,17 @@
 import time
 
-from y2023.d05.seed_fertilizer import SeedFertilizer
+from y2023.d05.solution import Almanac
 
 if __name__ == '__main__':
-    almanac = []
+    almanac_lines = []
     with open("data", "r") as data_file:
         for line in data_file:
-            almanac.append(line.rstrip())
-    seed_fertilizer = SeedFertilizer(almanac)
+            almanac_lines.append(line.rstrip())
+    almanac = Almanac(almanac_lines)
     start = time.time()
     print("Part 1:")
     end = time.time()
-    print(f"{seed_fertilizer.get_lowest_location()} time: {time.time() - start}s")
+    print(f"{almanac.get_lowest_location()} time: {time.time() - start}s")
     print("Part 2:")
     start = time.time()
-    print(f"{seed_fertilizer.get_lowest_location_seed_ranges()} time: {time.time() - start}s")
+    print(f"{almanac.get_lowest_location_seed_ranges()} time: {time.time() - start}s")

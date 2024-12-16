@@ -1,6 +1,6 @@
 import time
 
-from y2023.d04.scratchcards import Scratchcards
+from y2023.d04.solution import Solution
 
 if __name__ == '__main__':
     scratchcards = []
@@ -9,7 +9,7 @@ if __name__ == '__main__':
             scratchcards.append(line.rstrip())
     print("Part 1:")
     start = time.time()
-    print(f"{Scratchcards.get_scratchcards_score(scratchcards)} time: {time.time() - start}s")
+    print(f"{Solution.get_scratchcards_score(scratchcards)} time: {time.time() - start}s")
     print("Part 2:")
     start = time.time()
-    print(f"{Scratchcards.get_scratchcards_count(scratchcards)} time: {time.time() - start}s")
+    print(f"{Solution.get_scratchcards_count(scratchcards)} time: {time.time() - start}s")

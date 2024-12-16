@@ -1,24 +1,24 @@
-class PointOfIncidence:
+class Solution:
 
     @staticmethod
     def get_reflection(vulcano_map: list[str]):
-        row = PointOfIncidence._search_for_reflection(vulcano_map)
+        row = Solution._search_for_reflection(vulcano_map)
         if row != -1:
             return row * 100
 
         column_organized = list(zip(*vulcano_map))
-        column = PointOfIncidence._search_for_reflection(column_organized)
+        column = Solution._search_for_reflection(column_organized)
         if column != -1:
             return column
 
     @staticmethod
     def get_reflection_of_by(vulcano_map: list[str], of_by: int):
-        row = PointOfIncidence._search_for_reflection_of_by(vulcano_map, of_by)
+        row = Solution._search_for_reflection_of_by(vulcano_map, of_by)
         if row != -1:
             return row * 100
 
         column_organized = list(zip(*vulcano_map))
-        column = PointOfIncidence._search_for_reflection_of_by(column_organized, of_by)
+        column = Solution._search_for_reflection_of_by(column_organized, of_by)
         if column != -1:
             return column
 
@@ -49,12 +49,12 @@ class PointOfIncidence:
     def get_reflection_sum(vulcano_maps: list[list[str]]) -> int:
         total = 0
         for vulcano_map in vulcano_maps:
-            total += PointOfIncidence.get_reflection(vulcano_map)
+            total += Solution.get_reflection(vulcano_map)
         return total
 
     @staticmethod
     def get_reflection_sum_of_by(vulcano_maps: list[list[str]], of_by: int) -> int:
         total = 0
         for vulcano_map in vulcano_maps:
-            total += PointOfIncidence.get_reflection_of_by(vulcano_map, of_by)
+            total += Solution.get_reflection_of_by(vulcano_map, of_by)
         return total

@@ -1,12 +1,12 @@
 import re
 
-class Scratchcards:
+class Solution:
 
     @staticmethod
     def get_scratchcards_score(scratchcards: list[str]) -> int:
         score = 0
         for scratchcard in scratchcards:
-            _, card_numbers, wining_numbers = Scratchcards._get_lists_from_scratchcard(scratchcard)
+            _, card_numbers, wining_numbers = Solution._get_lists_from_scratchcard(scratchcard)
             winning_cnt = len(set(card_numbers).intersection(set(wining_numbers)))
             if winning_cnt > 0:
                 score += pow(2, winning_cnt - 1)
@@ -17,7 +17,7 @@ class Scratchcards:
         last_scratch_card_id = len(scratchcards) #ids are 1 based
         pre_processed_cards = dict()
         for scratchcard in scratchcards:
-            card_id, card_numbers, wining_numbers = Scratchcards._get_lists_from_scratchcard(scratchcard)
+            card_id, card_numbers, wining_numbers = Solution._get_lists_from_scratchcard(scratchcard)
             winning_cnt = len(set(card_numbers).intersection(set(wining_numbers)))
             pre_processed_cards[card_id] = winning_cnt
         cards = {}

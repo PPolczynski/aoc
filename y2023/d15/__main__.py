@@ -1,5 +1,5 @@
 import time
-from y2023.d15.lens_library import LensLibrary
+from y2023.d15.solution import Solution
 
 if __name__ == '__main__':
     initialization_sequence = []
@@ -9,8 +9,8 @@ if __name__ == '__main__':
 
     print("Part 1:")
     start = time.time()
-    print(f"{LensLibrary.get_hash_initialization_sequence(initialization_sequence[0])} time: {time.time() - start}s")
+    print(f"{Solution.get_hash_initialization_sequence(initialization_sequence[0])} time: {time.time() - start}s")
 
     print("Part 2:")
     start = time.time()
-    print(f"{LensLibrary.get_focusing_power_of_configuration(initialization_sequence[0])} time: {time.time() - start}s")
+    print(f"{Solution.get_focusing_power_of_configuration(initialization_sequence[0])} time: {time.time() - start}s")

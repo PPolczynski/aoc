@@ -1,6 +1,6 @@
 import time
 
-from y2023.d13.point_of_incidence import PointOfIncidence
+from y2023.d13.solution import Solution
 
 if __name__ == '__main__':
     vulcano_maps = []
@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     print("Part 1:")
     start = time.time()
-    print(f"{PointOfIncidence.get_reflection_sum(vulcano_maps)} time: {time.time() - start}s")
+    print(f"{Solution.get_reflection_sum(vulcano_maps)} time: {time.time() - start}s")
     print("Part 2:")
     start = time.time()
-    print(f"{PointOfIncidence.get_reflection_sum_of_by(vulcano_maps, 1)} time: {time.time() - start}s")
+    print(f"{Solution.get_reflection_sum_of_by(vulcano_maps, 1)} time: {time.time() - start}s")

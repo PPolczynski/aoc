@@ -3,9 +3,9 @@ import re
 from utils.linked_list_node import LinkedListNode
 
 
-class LensLibrary:
+class Solution:
     @staticmethod
-    def holiday_ascii_string_helper_algorithm(string: str) -> int:
+    def get_hash(string: str) -> int:
         current_value = 0
         for char in string:
             current_value += ord(char)
@@ -15,7 +15,7 @@ class LensLibrary:
 
     @staticmethod
     def get_hash_initialization_sequence(initialization_sequence: str) -> int:
-        return sum([LensLibrary.holiday_ascii_string_helper_algorithm(instruction)
+        return sum([Solution.get_hash(instruction)
                     for instruction in initialization_sequence.split(",")])
 
     @staticmethod
@@ -24,7 +24,7 @@ class LensLibrary:
 
         for lens_configurations in lens_configurations.split(","):
             label = re.findall("\w+", lens_configurations)[0]
-            key = LensLibrary.holiday_ascii_string_helper_algorithm(label)
+            key = Solution.get_hash(label)
             is_addition = lens_configurations.find("=") != -1
             lens = int(re.findall("\d+", lens_configurations)[0]) if is_addition else 0
             if key in boxes:

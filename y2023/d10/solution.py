@@ -41,7 +41,7 @@ _inside = {
 _directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 _empty_field = "."
 
-class PipeMaze:
+class Maze:
     def __init__(self, maze: list[str]):
         self._maze = Matrix(maze, _empty_field)
 
