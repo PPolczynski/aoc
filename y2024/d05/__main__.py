@@ -15,10 +15,10 @@ if __name__ == '__main__':
             else:
                 print_orders.append(line.rstrip())
 
-    print_queue = Printer(rules)
+    printer = Printer(rules)
     print("Part 1:")
     start = time.time()
-    print(f"{print_queue.get_correctly_ordered_middle_sum(print_orders)} time: {time.time() - start}s")
+    print(f"{printer.get_correctly_ordered_middle_sum(print_orders)} time: {time.time() - start}s")
     print("Part 2:")
     start = time.time()
-    print(f"{print_queue.get_incorrectly_ordered_middle_sum(print_orders)} time: {time.time() - start}s")
+    print(f"{printer.get_incorrectly_ordered_middle_sum(print_orders)} time: {time.time() - start}s")

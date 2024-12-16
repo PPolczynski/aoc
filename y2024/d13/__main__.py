@@ -14,10 +14,10 @@ if __name__ == '__main__':
             else:
                 machines[i].append(line.rstrip())
 
-    claw_contraption = ClawGame(machines)
+    claw_game = ClawGame(machines)
     print("Part 1:")
     start = time.time()
-    print(f"{claw_contraption.get_fewest_token_to_win()} time: {time.time() - start}s")
-    print(" Part 2:")
+    print(f"{claw_game.get_fewest_token_to_win()} time: {time.time() - start}s")
+    print("Part 2:")
     start = time.time()
-    print(f"{claw_contraption.get_fewest_token_to_win_with_conversion(10000000000000)} time: {time.time() - start}s")
+    print(f"{claw_game.get_fewest_token_to_win_with_conversion(10000000000000)} time: {time.time() - start}s")
