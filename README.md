@@ -12,4 +12,4 @@ The tasks and the input are available on [Advent of code official website](https
 As per [Advent of Code legal](https://adventofcode.com/2024/about#legal)
 > You may link to or reference puzzles from Advent of Code in discussions, classes, source code, printed material, etc.
 
-Advent of code is a trademark of Wastl, Eric K
+Advent Of Code is a trademark of Wastl, Eric K
