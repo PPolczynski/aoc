@@ -1,8 +1,8 @@
 # About
-This repository contains my solutions to Advent of Code puzzles.
+This repository contains my solutions to the Advent of Code puzzles.
 
 # What is Advent of Code:
-Advent of code is an annual event where attaches attempt to solve series of puzzle presented in the form of advent calendar
+Advent of code is an annual event where participants attempt to solve series of puzzle presented in the form of advent calendar
 Official website: [adventofcode](https://adventofcode.com/about).
 
 # Tasks
