@@ -1,6 +1,7 @@
 import math
 import re
 
+_octal = 8
 
 class Computer:
     def __init__(self, program: list[str]):
@@ -58,17 +59,24 @@ class Computer:
         return self.run()
 
     def get_a_returning_copy(self):
-        queue = [(15, 0)]
-        solutions = []
-        while queue:
-            idx, initial_value = queue.pop(0)
-            for last_digit in range(0, 8):
-                candidate = (initial_value << 3) + last_digit
-                expected_output = self._instructions[idx:]
-                output = self.run_for(candidate, 0, 0)
-                if output == expected_output:
-                    if idx == 0:
-                        solutions.append(candidate)
-                    else:
-                        queue.append((idx - 1, candidate))
-        return sorted(solutions)
+        result = set()
+        current = [0] * len(self._instructions)
+        for r in range(_octal):
+            current[0] = r
+            result |= self.brute_force(current, 0)
+        return sorted(list(result))
+
+    def brute_force(self, current, idx):
+        output = self.run_for(int("".join(map(str, current)), _octal), 0, 0)
+        if self._instructions == output:
+            return {int("".join(map(str, current)), _octal)}
+        elif (idx < len(current) - 1
+              and len(self._instructions) == len(output)
+              and self._instructions[len(self._instructions) - idx:] == output[len(output) - idx:]):
+            out = set()
+            for r in range(_octal):
+                current[idx + 1] = r
+                out |= self.brute_force(current, idx + 1)
+            current[idx+ 1] = 0
+            return out
+        return set()
