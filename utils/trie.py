@@ -1,3 +1,4 @@
+from __future__ import annotations
 _EOW = "##EOW##"
 
 class Trie:
@@ -48,3 +49,14 @@ class Trie:
                 return self._root[first_char].stats_with(prefix[1:])
             else:
                 return []
+
+    def get_branch(self, prefix: str) -> Trie:
+        if not prefix:
+            return self
+        else:
+            first_char = prefix[0].lower()
+            if first_char in self._root:
+                return self._root[first_char].get_branch(prefix[1:])
+
+    def word_at_root(self):
+        return self._root[_EOW] if _EOW in self._root else ""
