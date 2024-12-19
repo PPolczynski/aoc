@@ -14,35 +14,35 @@ class Onsen:
         self._patterns = patterns
 
     def get_possible_designs_count(self) -> int:
-        possible_patterns = set()
+        total = 0
         for pattern in self._patterns:
             root = Trie()
             root.add_word(pattern)
-            candidates = [root]
-            while candidates:
-                candidate = candidates.pop()
-                if not candidate:
-                    continue
-                elif candidate.word_at_root():
-                    possible_patterns.add(candidate.word_at_root())
-                    break
-                for letter in self._towels_grouped.keys() :
-                    if candidate.stats_with(letter):
-                        for towel in self._towels_grouped[letter]:
-                            node = candidate.get_branch(towel)
-                            if node:
-                                candidates.append(node)
-        return len(possible_patterns)
+            total += self.dfs_is_possible(root)
+        return total
+
+    def dfs_is_possible(self, root: Trie) -> int:
+        if not root:
+            return False
+        elif root.word_at_root():
+            return True
+        else:
+            for letter in self._towels_grouped.keys():
+                if root.stats_with(letter):
+                    for towel in self._towels_grouped[letter]:
+                        if self.dfs_is_possible(root.get_branch(towel)):
+                            return True
+        return False
 
     def get_all_possible_designs_count(self):
         total = 0
         for pattern in self._patterns:
             root = Trie()
             root.add_word(pattern)
-            total += self.dfs(root, 0, dict())
+            total += self.dfs_count(root, 0, dict())
         return total
 
-    def dfs(self, root: Trie, idx: int, mem: dict) -> int:
+    def dfs_count(self, root: Trie, idx: int, mem: dict) -> int:
         if not root:
             return 0
         elif root.word_at_root():
@@ -54,6 +54,6 @@ class Onsen:
             for letter in self._towels_grouped.keys():
                 if root.stats_with(letter):
                     for towel in self._towels_grouped[letter]:
-                        total += self.dfs(root.get_branch(towel), idx + len(towel), mem)
+                        total += self.dfs_count(root.get_branch(towel), idx + len(towel), mem)
             mem[idx] = total
             return total
