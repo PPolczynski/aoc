@@ -1,5 +1,3 @@
-from multiprocessing import Pool
-
 from utils.trie import Trie
 
 
@@ -18,9 +16,9 @@ class Onsen:
     def get_possible_designs_count(self) -> int:
         possible_patterns = set()
         for pattern in self._patterns:
-            t = Trie()
-            t.add_word(pattern)
-            candidates = [t]
+            root = Trie()
+            root.add_word(pattern)
+            candidates = [root]
             while candidates:
                 candidate = candidates.pop()
                 if not candidate:
@@ -35,3 +33,27 @@ class Onsen:
                             if node:
                                 candidates.append(node)
         return len(possible_patterns)
+
+    def get_all_possible_designs_count(self):
+        total = 0
+        for pattern in self._patterns:
+            root = Trie()
+            root.add_word(pattern)
+            total += self.dfs(root, 0, dict())
+        return total
+
+    def dfs(self, root: Trie, idx: int, mem: dict) -> int:
+        if not root:
+            return 0
+        elif root.word_at_root():
+            return 1
+        elif idx in mem:
+            return mem[idx]
+        else:
+            total = 0
+            for letter in self._towels_grouped.keys():
+                if root.stats_with(letter):
+                    for towel in self._towels_grouped[letter]:
+                        total += self.dfs(root.get_branch(towel), idx + len(towel), mem)
+            mem[idx] = total
+            return total
