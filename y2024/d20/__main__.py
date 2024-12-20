@@ -1,6 +1,6 @@
 import time
 
-from y2024.s20.solution import Maze
+from y2024.d20.solution import Maze
 
 if __name__ == '__main__':
     lines = []
