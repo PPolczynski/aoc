@@ -34,28 +34,33 @@ class Maze:
                     queue.append(((x + dx, y + dy), path.copy()))
         return shortest
 
-    def _cheat(self, coordinate, time_passed, time_left):
-        if time_passed > time_left:
-            return []
-        elif self._maze.is_out_of_bounds(coordinate):
-            return []
-        else:
-            cheats = []
-            if time_passed != 0 and self._maze[coordinate] != _wall:
-                cheats.append((coordinate, time_passed))
-            x, y = coordinate
-            for dx, dy in _adjacent_fields:
-                cheats += self._cheat((x + dx, y + dy), time_passed + 1, time_left)
-            return cheats
+    def _cheat(self, start):
+        cheats = dict()
+        visited = dict()
+        queue = deque([(start, 0)])
+        while queue:
+            position, time_elapsed = queue.popleft()
+            if (self._maze.is_out_of_bounds(position)
+                    or time_elapsed > self._cheat_window
+                    or (position in visited and visited[position] >= time_elapsed)):
+                continue
+            else:
+                x, y = position
+                visited[position] = time_elapsed
+                if self._maze[position] != _wall:
+                    cheats[position] = min(cheats.get(position, float("Inf")), time_elapsed)
+                for dx, dy in _adjacent_fields:
+                    queue.append(((x + dx, y + dy), time_elapsed + 1))
+        return  [(position, time) for position, time in cheats.items()]
 
-    def _get_cheats(self):
+    def get_cheats(self):
         path = self._get_path_no_cheating()
         position_distance = dict()
         for distance, point in enumerate(path[::-1]):
             position_distance[point] = distance
         cheats = defaultdict(int)
         for point in path:
-            cheat_candidates = self._cheat(point, 0, self._cheat_window)
+            cheat_candidates = self._cheat(point)
             current_distance_left = position_distance[point]
             for position, time in cheat_candidates:
                 distance_after_cheat = position_distance[position]
@@ -65,6 +70,6 @@ class Maze:
         return cheats
 
     def get_cheats_count(self, saving_at_least: int):
-        cheats = self._get_cheats()
+        cheats = self.get_cheats()
         return sum([count if time_saved >= saving_at_least else 0 for time_saved, count in cheats.items()])
 
