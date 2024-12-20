@@ -1,3 +1,4 @@
+import time
 from collections import defaultdict
 
 from utils.matrix import Matrix
@@ -12,8 +13,8 @@ _adjacent_fields = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 def get_grid(start: tuple[int, int], distance: int):
     grid = []
     x, y = start
-    for y_offset in range (-distance, distance + 1):
-        for x_offset in range ( -distance + abs(y_offset), distance - abs(y_offset) + 1):
+    for y_offset in range(-distance, distance + 1):
+        for x_offset in range(-distance + abs(y_offset), distance - abs(y_offset) + 1):
            grid.append((x + x_offset, y  + y_offset))
     return grid
 
@@ -42,13 +43,18 @@ class Maze:
                     queue.append((x + dx, y + dy))
         return path
 
-    def _cheat(self, start):
-        candidates = []
+    def _cheat(self, start, position_distance,saving_at_least):
+        current_distance_left = position_distance[start]
         x, y = start
+        cheats = defaultdict(int)
         for point in get_grid(start, self._cheat_window):
             if not self._maze.is_out_of_bounds(point) and self._maze[point] != _wall:
-                candidates.append((point, abs(x - point[0]) + abs(y - point[1])))
-        return candidates
+                distance_after_cheat = position_distance[point]
+                distance = abs(x - point[0]) + abs(y - point[1])
+                save = distance_after_cheat - current_distance_left - distance
+                if save >= saving_at_least:
+                    cheats[save] += 1
+        return cheats
 
     def get_cheats(self, saving_at_least):
         path = self._get_path_no_cheating()
@@ -57,16 +63,11 @@ class Maze:
             position_distance[point] = distance
         cheats = defaultdict(int)
         for point in path:
-            cheat_candidates = self._cheat(point)
-            current_distance_left = position_distance[point]
-            for position, distance in cheat_candidates:
-                distance_after_cheat = position_distance[position]
-                save = distance_after_cheat - current_distance_left - distance
-                if save >= saving_at_least:
-                    cheats[save] += 1
+            found_cheats = self._cheat(point, position_distance, saving_at_least)
+            for key, value in found_cheats.items():
+                cheats[key] += value
         return cheats
 
     def get_cheats_count(self, saving_at_least: int):
         cheats = self.get_cheats(saving_at_least)
         return sum([count for _, count in cheats.items()])
-
