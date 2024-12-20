@@ -1,12 +1,21 @@
-from collections import deque, defaultdict
+from collections import defaultdict
 
 from utils.matrix import Matrix
+
 
 _wall = "#"
 _start = "S"
 _end = "E"
 _adjacent_fields = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
+
+def get_grid(start: tuple[int, int], distance: int):
+    grid = []
+    x, y = start
+    for y_offset in range (-distance, distance + 1):
+        for x_offset in range ( -distance + abs(y_offset), distance - abs(y_offset) + 1):
+           grid.append((x + x_offset, y  + y_offset))
+    return grid
 
 class Maze:
     def __init__(self, maze: list[str], cheat_window: int):
@@ -15,45 +24,33 @@ class Maze:
 
     def _get_path_no_cheating(self):
         start = self._maze.find(_start)[0]
-        end = self._maze.find(_end)[0]
-        queue = deque([(start, [])])
-        shortest = []
+        queue = [start]
+        path = [] #there is only one path in this maze
         visited = set()
         while queue:
-            position, path = queue.popleft()
+            position = queue.pop()
             if self._maze.is_out_of_bounds(position) or self._maze[position] == _wall or position in visited:
                 continue
-            elif position == end:
-                path.append(end)
-                shortest = path
+            elif self._maze[position] == _end:
+                path.append(position)
+                break
             else:
                 x, y = position
                 path.append(position)
                 visited.add(position)
                 for dx, dy in _adjacent_fields:
-                    queue.append(((x + dx, y + dy), path.copy()))
-        return shortest
+                    queue.append((x + dx, y + dy))
+        return path
 
     def _cheat(self, start):
-        cheats = dict()
-        visited = dict()
-        queue = deque([(start, 0)])
-        while queue:
-            position, time_elapsed = queue.popleft()
-            if (self._maze.is_out_of_bounds(position)
-                    or time_elapsed > self._cheat_window
-                    or (position in visited and visited[position] >= time_elapsed)):
-                continue
-            else:
-                x, y = position
-                visited[position] = time_elapsed
-                if self._maze[position] != _wall:
-                    cheats[position] = min(cheats.get(position, float("Inf")), time_elapsed)
-                for dx, dy in _adjacent_fields:
-                    queue.append(((x + dx, y + dy), time_elapsed + 1))
-        return  [(position, time) for position, time in cheats.items()]
+        candidates = []
+        x, y = start
+        for point in get_grid(start, self._cheat_window):
+            if not self._maze.is_out_of_bounds(point) and self._maze[point] != _wall:
+                candidates.append((point, abs(x - point[0]) + abs(y - point[1])))
+        return candidates
 
-    def get_cheats(self):
+    def get_cheats(self, saving_at_least):
         path = self._get_path_no_cheating()
         position_distance = dict()
         for distance, point in enumerate(path[::-1]):
@@ -62,14 +59,14 @@ class Maze:
         for point in path:
             cheat_candidates = self._cheat(point)
             current_distance_left = position_distance[point]
-            for position, time in cheat_candidates:
+            for position, distance in cheat_candidates:
                 distance_after_cheat = position_distance[position]
-                save = distance_after_cheat - current_distance_left - time
-                if save > 0:
+                save = distance_after_cheat - current_distance_left - distance
+                if save >= saving_at_least:
                     cheats[save] += 1
         return cheats
 
     def get_cheats_count(self, saving_at_least: int):
-        cheats = self.get_cheats()
-        return sum([count if time_saved >= saving_at_least else 0 for time_saved, count in cheats.items()])
+        cheats = self.get_cheats(saving_at_least)
+        return sum([count for _, count in cheats.items()])
 
