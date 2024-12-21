@@ -1,6 +1,5 @@
 import time
 
-from y2024.d20.solution import Maze
 from y2024.d21.solution import get_codes_complexity
 
 if __name__ == '__main__':
@@ -11,8 +10,7 @@ if __name__ == '__main__':
 
     print("Part 1:")
     start = time.time()
-    print(f"{get_codes_complexity(lines)} time: {time.time() - start}s")
-    # print("Part 2:")
-    # maze = Maze(lines, 20)
-    # start = time.time()
-    # print(f"{maze.get_cheats_count(100)} time: {time.time() - start}s")
+    print(f"{(get_codes_complexity(lines, 2))} time: {time.time() - start}s")
+    print("Part 2:")
+    start = time.time()
+    print(f"{(get_codes_complexity(lines, 25))} time: {time.time() - start}s")
