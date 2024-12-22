@@ -1,6 +1,6 @@
 import time
 
-from y2024.d22.solution import Secrets
+from y2024.d22.solution import Solution
 
 if __name__ == '__main__':
     lines = []
@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     print("Part 1:")
     start = time.time()
-    print(f"{(Secrets.get_nth_secret_number_sum(lines, 2000))} time: {time.time() - start}s")
+    print(f"{(Solution.get_nth_secret_number_sum(lines, 2000))} time: {time.time() - start}s")
     print("Part 2:")
     start = time.time()
-    print(f"{(Secrets.get_max_bananas_sum_after_n_secrets(lines, 2000))} time: {time.time() - start}s")
+    print(f"{(Solution.get_max_bananas_sum_after_n_secrets(lines, 2000))} time: {time.time() - start}s")
