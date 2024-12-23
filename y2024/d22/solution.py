@@ -10,7 +10,7 @@ class Solution:
         # 2^11 2024
         # 16777216 = 2 ^ 24
         #  x % 2 ^ n == x & (2 ^n-1)
-        new_number = (number ^ (number << 6)) & 16777215 #0b1000000000000000000000000
+        new_number = (number ^ (number << 6)) & 16777215
         new_number = (new_number ^ (new_number >> 5) ) & 16777215
         new_number = (new_number ^ (new_number << 11) ) & 16777215
         return new_number
