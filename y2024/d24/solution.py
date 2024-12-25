@@ -14,7 +14,6 @@ class Gates:
                 self._z_gates.append(out_gate)
         self._z_gates.sort(reverse=True)
 
-
     def get_z_gets_decimal(self):
         return int("".join([str(self._dfs(z_gates)) for z_gates in self._z_gates]), 2)
 
@@ -35,28 +34,67 @@ class Gates:
             self._known_gates[gate] = out_value
             return out_value
 
-
     def part2(self):
-        y_gates = []
-        x_gates = []
-        for gate in self._known_gates.keys():
-            if gate.startswith("y"):
-                y_gates.append(gate)
-            elif gate.startswith("x"):
-                x_gates.append(gate)
-        y_gates.sort(reverse=True)
-        x_gates.sort(reverse=True)
-        print("0"+ "".join([str(self._known_gates[gate]) for gate in x_gates]))
-        print("0" + "".join([str(self._known_gates[gate]) for gate in y_gates]))
-        print("".join([str(self._dfs(z_gates)) for z_gates in self._z_gates]))
-        a = int("0"+ "".join([str(self._known_gates[gate]) for gate in x_gates]), 2)
-        b = int("0" + "".join([str(self._known_gates[gate]) for gate in y_gates]), 2)
-        print(a + b)
-        print(int("".join([str(self._dfs(z_gates)) for z_gates in self._z_gates]),2))
-        # print(self.bfs("z11"))
-        # print(self.bfs("z17"))
-        # print(self.bfs("z26"))
-        print(self.bfs("z39"))
+        fixes = []
+        while True:
+            is_valid, fail_idx = self.validate()
+            if is_valid:
+                break
+            print(f"fails at bit: {fail_idx}")
+            print(f"gate z{fail_idx:0>2}")
+            self.bfs(f"z{fail_idx:0>2}")
+            print(f"next gate z{fail_idx + 1:0>2}")
+            self.bfs(f"z{fail_idx + 1:0>2}")
+            a,b = input("give , separated pair to switch\n").strip().split(",")
+            self.swap(a,b)
+            is_valid, new_fail_idx = self.validate()
+            if not is_valid and new_fail_idx <= fail_idx:
+                print("wrong gates, reverting...")
+                self.swap(a, b)
+            else:
+                fixes.append(a)
+                fixes.append(b)
+        return ",".join(sorted(fixes))
+
+
+    def validate(self):
+        if (not self.validate_for_input(1, 0)
+            or not self.validate_for_input(0, 1)
+            or not self.validate_for_input(1,1)):
+            return False, 0
+        else:
+            bits_input = len(self._z_gates) - 1
+            for idx in range(1, bits_input):
+                combinations = [
+                    (2**idx, 0), #10  00 -> 10
+                    (0, 2 ** idx), #00 10 -> 10
+                    (2**idx, 2**idx), #10 10 ->100
+                    (2**idx + 2**(idx - 1), 2**(idx - 1)), #11 01 -> 100 first two cases should cover reverse situation
+                    (2**idx + 2**(idx - 1), 2**idx + 2**(idx - 1))  #11 11 -> 110
+                ]
+                for x, y in combinations:
+                    if not self.validate_for_input(x, y):
+                        return False, idx + 1
+        return True, 0
+
+    def validate_for_input(self, x, y):
+        self.set_known(x, y)
+        result = int("".join([str(self._dfs(z_gates)) for z_gates in self._z_gates]), 2)
+        return x + y == result
+
+    def swap(self, gate_a, gate_b):
+        tmp = self._gates_graph[gate_a]
+        self._gates_graph[gate_a] = self._gates_graph[gate_b]
+        self._gates_graph[gate_b] = tmp
+
+    def set_known(self, x, y):
+        bits_input = len(self._z_gates) - 1
+        new_input = dict()
+        for idx, bit in enumerate(f"{x:b}".rjust(bits_input, "0")):
+            new_input[f"x{bits_input - idx - 1:0>2}"] = int(bit)
+        for idx, bit in enumerate(f"{y:b}".rjust(bits_input, "0")):
+            new_input[f"y{bits_input - idx - 1:0>2}"] = int(bit)
+        self._known_gates = new_input
 
     def bfs(self, gate):
         queue = [(gate, self._gates_graph[gate])]
