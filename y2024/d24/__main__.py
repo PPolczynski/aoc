@@ -1,6 +1,5 @@
 import time
 
-from y2024.d15.solution import Warehouse
 from y2024.d24.solution import Gates
 
 if __name__ == '__main__':
@@ -24,5 +23,7 @@ if __name__ == '__main__':
     gates = Gates(known, graph)
     print("Part 2:")
     start = time.time()
+    #https://en.wikipedia.org/wiki/Adder_(electronics)
+    #rules to follow to fix the graph manually
     print(f"{gates.part2()} time: {time.time() - start}s")
 
