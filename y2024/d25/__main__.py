@@ -1,6 +1,5 @@
 import time
 
-from y2024.d15.solution import Warehouse
 from y2024.d25.solution import Locks
 
 if __name__ == '__main__':
