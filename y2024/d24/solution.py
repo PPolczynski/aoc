@@ -35,3 +35,39 @@ class Gates:
             self._known_gates[gate] = out_value
             return out_value
 
+
+    def part2(self):
+        y_gates = []
+        x_gates = []
+        for gate in self._known_gates.keys():
+            if gate.startswith("y"):
+                y_gates.append(gate)
+            elif gate.startswith("x"):
+                x_gates.append(gate)
+        y_gates.sort(reverse=True)
+        x_gates.sort(reverse=True)
+        print("0"+ "".join([str(self._known_gates[gate]) for gate in x_gates]))
+        print("0" + "".join([str(self._known_gates[gate]) for gate in y_gates]))
+        print("".join([str(self._dfs(z_gates)) for z_gates in self._z_gates]))
+        a = int("0"+ "".join([str(self._known_gates[gate]) for gate in x_gates]), 2)
+        b = int("0" + "".join([str(self._known_gates[gate]) for gate in y_gates]), 2)
+        print(a + b)
+        print(int("".join([str(self._dfs(z_gates)) for z_gates in self._z_gates]),2))
+        # print(self.bfs("z11"))
+        # print(self.bfs("z17"))
+        # print(self.bfs("z26"))
+        print(self.bfs("z39"))
+
+    def bfs(self, gate):
+        queue = [(gate, self._gates_graph[gate])]
+        while queue:
+            print(queue)
+            tmp = []
+            while queue:
+                gate, node = queue.pop()
+                gate_left, gate_right, operation = node
+                if gate_left in self._gates_graph:
+                    tmp.append((gate_left, self._gates_graph[gate_left]))
+                if gate_right in self._gates_graph:
+                    tmp.append((gate_right, self._gates_graph[gate_right]))
+            queue = tmp

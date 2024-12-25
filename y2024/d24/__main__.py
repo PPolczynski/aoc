@@ -21,8 +21,8 @@ if __name__ == '__main__':
     print("Part 1:")
     start = time.time()
     print(f"{gates.get_z_gets_decimal()} time: {time.time() - start}s")
-    # print("Part 2:")
-    # start = time.time()
-    # warehouse.apply_moves(moves)
-    # print(f"{warehouse.get_boxes_coordinates_sum()} time: {time.time() - start}s")
+    gates = Gates(known, graph)
+    print("Part 2:")
+    start = time.time()
+    print(f"{gates.part2()} time: {time.time() - start}s")
 
