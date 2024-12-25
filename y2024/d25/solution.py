@@ -1,3 +1,5 @@
+_pin = "#"
+
 class Locks:
     def __init__(self, locks_and_keys: list[list[str]]):
         self._keys = []
@@ -6,18 +8,14 @@ class Locks:
         for lock_or_key in locks_and_keys:
             number_of_pins = len(lock_or_key[0])
             schematic = [-1] * number_of_pins
-            is_lock = lock_or_key[0][0] == "#"
-            char_to_count = "#"
+            is_lock = lock_or_key[0][0] == _pin
             for row in lock_or_key:
                 for col_idx, value in enumerate(row):
-                    schematic[col_idx] += 1 if value == char_to_count else 0
+                    schematic[col_idx] += 1 if value == _pin else 0
             if is_lock:
                 self._locks.append(schematic)
             else:
                 self._keys.append(schematic)
-
-        print(self._locks)
-        print(self._keys)
 
     def get_fitting_keys_count(self):
         count = 0

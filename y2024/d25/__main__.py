@@ -19,8 +19,5 @@ if __name__ == '__main__':
     print("Part 1:")
     start = time.time()
     print(f"{locks.get_fitting_keys_count()} time: {time.time() - start}s")
-    # print("Part 2:")
-    # start = time.time()
-    # warehouse.apply_moves(moves)
-    # print(f"{warehouse.get_boxes_coordinates_sum()} time: {time.time() - start}s")
+    #There is no part 2 :)
 
