@@ -10,8 +10,8 @@ if __name__ == '__main__':
     city_map = CityMap(lines)
     print("Part 1:")
     start = time.time()
-    print(f"{city_map.get_least_heat_loss_possible()} time: {time.time() - start}s")
+    print(f"{city_map.get_least_heat_loss_possible(1,3)} time: {time.time() - start}s")
 
-    # print("Part 2:")
-    # start = time.time()
-    # print(f"{contraption.get_max_energized_tiles_count()} time: {time.time() - start}s")
+    print("Part 2:")
+    start = time.time()
+    print(f"{city_map.get_least_heat_loss_possible(4,10)} time: {time.time() - start}s")
