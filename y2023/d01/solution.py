@@ -1,4 +1,5 @@
 from utils.trie import Trie
+from puzzle import Solution
 
 _numbers_map = {
     "one" : "1",
@@ -11,6 +12,24 @@ _numbers_map = {
     "eight" : "8",
     "nine" : "9"
 }
+
+def _part1(input_data: str) -> any:
+    document = input_data.splitlines()
+    trebuchet = Trebuchet(document)
+    return trebuchet.get_calibration()
+
+def _part2(input_data: str) -> any:
+    document = input_data.splitlines()
+    trebuchet = Trebuchet(document)
+    return trebuchet.get_calibration_spelled_out()
+
+solution = Solution(
+        "Trebuchet?!",
+        "1",
+        "2023",
+        part1=_part1,
+        part2=_part2
+)
 
 class Trebuchet:
     def __init__(self, calibration_document: list[str]):

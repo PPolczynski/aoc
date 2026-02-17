@@ -1,4 +1,25 @@
 import re
+from puzzle import Solution as Puzzle
+
+
+def _part1(input_data: str) -> any:
+    lines = input_data.splitlines()
+    return Solution.get_scratchcards_score(lines)
+
+
+def _part2(input_data: str) -> any:
+    lines = input_data.splitlines()
+    return Solution.get_scratchcards_count(lines)
+
+
+solution = Puzzle(
+    "Scratchcards",
+    "4",
+    "2023",
+    part1=_part1,
+    part2=_part2
+)
+
 
 class Solution:
 
@@ -34,9 +55,9 @@ class Solution:
     @staticmethod
     def _get_lists_from_scratchcard(scratchcard: str) -> tuple[int, list[int], list[int]]:
         card_parts = scratchcard.split(": ")
-        card_id = int(re.findall("\d+", card_parts[0])[0])
+        card_id = int(re.findall(r"\d+", card_parts[0])[0])
         card_numbers, wining_numbers = card_parts[1].split(" | ")
         def _numbers_str_to_list(numbers: str) -> list[int]:
-            return [int(num) for num in re.findall("\d+", numbers)]
+            return [int(num) for num in re.findall(r"\d+", numbers)]
         return card_id, _numbers_str_to_list(card_numbers), _numbers_str_to_list(wining_numbers)
 

@@ -6,10 +6,8 @@
 #advent-of-code local files
 data
 task
-*test.py
-test*.py
-!utils/*test.py
-!utils/test*.py
+tmp/
+config.ini
 
 # Node artifact files
 node_modules/

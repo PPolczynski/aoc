@@ -1,3 +1,24 @@
+from puzzle import Solution
+
+def _part1(input_data: str) -> any:
+    lines = input_data.splitlines()
+    cube_game = CubeGame([("red", 12), ("green", 13), ("blue", 14)])
+    return cube_game.get_sum_possible_id(lines)
+
+def _part2(input_data: str) -> any:
+    lines = input_data.splitlines()
+    cube_game = CubeGame([("red", 12), ("green", 13), ("blue", 14)])
+    return cube_game.get_sum_of_power(lines)
+
+solution = Solution(
+        "Cube Conundrum",
+        "2",
+        "2023",
+        part1=_part1,
+        part2=_part2
+)
+
+
 class CubeGame:
     def __init__(self, cubes: list[tuple[str, int]]):
         self._cubes = dict()
