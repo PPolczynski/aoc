@@ -4,6 +4,7 @@ from typing import Optional
 
 from puzzle import Solver, Client
 import y2023
+import y2024
 
 def get_config_value(key: str, arg_value: Optional[str] = None) -> Optional[str]:
     """Consolidated configuration lookup: Args > Env > config.ini > .env"""
@@ -31,6 +32,7 @@ def main():
     client = Client(token, refresh=args.refresh, path="./tmp")
     solver = Solver(client)
     solver.register(y2023.event)
+    solver.register(y2024.event)
                 
     solver.solve(args.year, args.day)
 

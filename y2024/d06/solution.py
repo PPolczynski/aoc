@@ -1,4 +1,5 @@
 from typing import Optional
+from puzzle import Solution
 
 _guard = "^"
 _obstacle = "#"
@@ -9,6 +10,27 @@ _rotations = {
     (1, 0): (0, -1),
     (0, -1): (-1, 0)
 }
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(maze_lines: list[str]) -> any:
+    maze = Maze(maze_lines)
+    return maze.get_guard_move_count()
+
+def _part2(maze_lines: list[str]) -> any:
+    maze = Maze(maze_lines)
+    return maze.get_possible_loop_count()
+
+solution = Solution(
+    "Guard Gallivant",
+    "6",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Maze:
     def __init__(self, maze: list[str]):

@@ -1,3 +1,26 @@
+from puzzle import Solution
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    sensor = Sensor(lines)
+    return sensor.get_extrapolated_values_sum()
+
+def _part2(lines: list[str]) -> any:
+    sensor = Sensor(lines)
+    return sensor.get_extrapolated_previous_values_sum()
+
+solution = Solution(
+    "Mirage Maintenance",
+    "9",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
 class Sensor:
     def __init__(self, lines: list[str]):
         reports = [Report(list(map(int, line.split(" ")))) for line in lines]

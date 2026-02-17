@@ -1,5 +1,6 @@
 import heapq
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _start = "S"
 _end = "E"
@@ -8,6 +9,29 @@ _start_direction = (1, 0)
 _adjacent_fields = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 _move_cost = 1
 _rotation_cost = 1000
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(maze_lines: list[str]) -> any:
+    maze = Maze(maze_lines)
+    length, _ = maze.race()
+    return length
+
+def _part2(maze_lines: list[str]) -> any:
+    maze = Maze(maze_lines)
+    _, path = maze.race()
+    return len(path)
+
+solution = Solution(
+    "Reindeer Maze",
+    "16",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Maze:
     def __init__(self, maze: list[str]):

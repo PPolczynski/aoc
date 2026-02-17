@@ -1,10 +1,31 @@
 import math
 from collections import defaultdict
-
 from utils.matrix import Matrix
+from puzzle import Solution
 
 def _get_distance(x1: int, y1: int, x2: int, y2: int):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(map_lines: list[str]) -> any:
+    city_map = CityMap(map_lines)
+    return city_map.get_antinodes_count()
+
+def _part2(map_lines: list[str]) -> any:
+    city_map = CityMap(map_lines)
+    return city_map.get_antinodes_count_distance_multiplier()
+
+solution = Solution(
+    "Resonant Collinearity",
+    "8",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class CityMap:
     def __init__(self, city_map: list[str]):

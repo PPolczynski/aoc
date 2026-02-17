@@ -1,6 +1,6 @@
 from collections import deque
-
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _directions = {
     ".": {
@@ -34,6 +34,27 @@ _directions = {
         (-1, 0): [(0, 1)],
     }
 }
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(contraption_lines: list[str]) -> any:
+    contraption = Contraption(contraption_lines)
+    return contraption.get_energized_tiles_count((0, 0), (1, 0))
+
+def _part2(contraption_lines: list[str]) -> any:
+    contraption = Contraption(contraption_lines)
+    return contraption.get_max_energized_tiles_count()
+
+solution = Solution(
+    "The Floor Will Be Lava",
+    "16",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Contraption:
     def __init__(self, _contraption):

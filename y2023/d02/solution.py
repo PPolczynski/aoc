@@ -1,12 +1,13 @@
 from puzzle import Solution
 
-def _part1(input_data: str) -> any:
-    lines = input_data.splitlines()
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
     cube_game = CubeGame([("red", 12), ("green", 13), ("blue", 14)])
     return cube_game.get_sum_possible_id(lines)
 
-def _part2(input_data: str) -> any:
-    lines = input_data.splitlines()
+def _part2(lines: list[str]) -> any:
     cube_game = CubeGame([("red", 12), ("green", 13), ("blue", 14)])
     return cube_game.get_sum_of_power(lines)
 
@@ -15,7 +16,9 @@ solution = Solution(
         "2",
         "2023",
         part1=_part1,
-        part2=_part2
+        part2=_part2,
+        part1_preprocess=_preprocess,
+        part2_preprocess=_preprocess
 )
 
 

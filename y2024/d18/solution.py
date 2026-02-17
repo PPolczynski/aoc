@@ -1,10 +1,32 @@
 import math
 from collections import deque
-
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _wall = "#"
 _adjacent_fields = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    maze = Maze(71, 71, lines)
+    return maze.get_shortest_path_length(1024)
+
+def _part2(lines: list[str]) -> any:
+    maze = Maze(71, 71, lines)
+    res = maze.get_last_coordinate_before_inescapable()
+    return f"{res[0]},{res[1]}"
+
+solution = Solution(
+    "RAM Run",
+    "18",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Maze:
     def __init__(self, len_x, len_y, falling_bytes: list[str]):

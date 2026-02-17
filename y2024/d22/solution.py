@@ -1,7 +1,26 @@
 from collections import deque, defaultdict
+from puzzle import Solution as BaseSolution
 
+def _preprocess(input_data: str) -> list[int]:
+    return [int(line) for line in input_data.splitlines()]
 
-class Solution:
+def _part1(secret_numbers: list[int]) -> any:
+    return MonkeyMarket.get_nth_secret_number_sum(secret_numbers, 2000)
+
+def _part2(secret_numbers: list[int]) -> any:
+    return MonkeyMarket.get_max_bananas_sum_after_n_secrets(secret_numbers, 2000)
+
+solution = BaseSolution(
+    "Monkey Market",
+    "22",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
+class MonkeyMarket:
 
     @staticmethod
     def calculate_next_secret(number):
@@ -19,7 +38,7 @@ class Solution:
     def get_nth_secret_number(secret_number, iterations):
         nth_number = secret_number
         for _ in range(iterations):
-            nth_number = Solution.calculate_next_secret(nth_number)
+            nth_number = MonkeyMarket.calculate_next_secret(nth_number)
         return nth_number
 
     @staticmethod
@@ -29,7 +48,7 @@ class Solution:
         out = dict()
         key_queue = deque()
         for _ in range(iterations):
-            nth_number = Solution.calculate_next_secret(nth_number)
+            nth_number = MonkeyMarket.calculate_next_secret(nth_number)
             current_price = nth_number % 10
             key_queue.append(current_price - previous_price)
             previous_price = current_price
@@ -44,11 +63,11 @@ class Solution:
     def get_max_bananas_sum_after_n_secrets(secret_numbers, iterations):
         sequence_max_bananas = defaultdict(int)
         for secret_number in secret_numbers:
-            changes = Solution.get_nth_changes_and_prices(secret_number, iterations)
+            changes = MonkeyMarket.get_nth_changes_and_prices(secret_number, iterations)
             for key, bananas in changes.items():
                 sequence_max_bananas[key] += bananas
         return max(sequence_max_bananas.values())
 
     @staticmethod
     def get_nth_secret_number_sum(secret_numbers, iterations):
-        return sum([Solution.get_nth_secret_number(secret_number, iterations) for secret_number in secret_numbers])
+        return sum([MonkeyMarket.get_nth_secret_number(secret_number, iterations) for secret_number in secret_numbers])

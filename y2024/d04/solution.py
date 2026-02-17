@@ -1,7 +1,30 @@
+from puzzle import Solution
+
 _adjacent_fields = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
 _diagonal_adjacent_fields = [(-1, 1), (1, 1),(1, -1), (-1, -1)]
 _mas_combinations = ["MMSS", "SMMS", "SSMM", "MSSM"]
 _x_mas_center = "A"
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(puzzle: list[str]) -> any:
+    word_puzzle = WordPuzzle(puzzle)
+    return word_puzzle.get_occurrence_count('XMAS')
+
+def _part2(puzzle: list[str]) -> any:
+    word_puzzle = WordPuzzle(puzzle)
+    return word_puzzle.get_x_mas_occurrence_count()
+
+solution = Solution(
+    "Ceres Search",
+    "4",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class WordPuzzle:
     def __init__(self, puzzle: list[str]):

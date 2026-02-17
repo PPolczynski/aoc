@@ -1,4 +1,5 @@
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _start = "S"
 
@@ -40,6 +41,27 @@ _inside = {
 
 _directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 _empty_field = "."
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(maze_lines: list[str]) -> any:
+    maze = Maze(maze_lines)
+    return maze.get_furthest_step()
+
+def _part2(maze_lines: list[str]) -> any:
+    maze = Maze(maze_lines)
+    return maze.get_enclosed_tile_count()
+
+solution = Solution(
+    "Pipe Maze",
+    "10",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Maze:
     def __init__(self, maze: list[str]):

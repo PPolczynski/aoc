@@ -1,5 +1,6 @@
 import math
 import re
+from puzzle import Solution
 
 _directions = {
     "L" : 0,
@@ -9,6 +10,31 @@ _start = "AAA"
 _target = "ZZZ"
 _ghost_start = "A"
 _ghost_end = "Z"
+
+def _preprocess(input_data: str) -> tuple[str, list[str]]:
+    lines = input_data.splitlines()
+    moves, _, *graph = lines
+    return moves, graph
+
+def _part1(data: tuple[str, list[str]]) -> any:
+    moves, graph = data
+    island_map = IslandMap(graph)
+    return island_map.get_steps_count(moves)
+
+def _part2(data: tuple[str, list[str]]) -> any:
+    moves, graph = data
+    island_map = IslandMap(graph)
+    return island_map.get_steps_count_ghost(moves)
+
+solution = Solution(
+    "Haunted Wasteland",
+    "8",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class IslandMap:
     def __init__(self, lines: list[str]):

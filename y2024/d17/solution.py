@@ -1,14 +1,36 @@
 import math
 import re
+from puzzle import Solution
 
 _octal = 8
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    computer = Computer(lines)
+    return ",".join(map(str, computer.run()))
+
+def _part2(lines: list[str]) -> any:
+    computer = Computer(lines)
+    return computer.get_a_returning_copy()[0]
+
+solution = Solution(
+    "Chronospatial Computer",
+    "17",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Computer:
     def __init__(self, program: list[str]):
         a,b,c, _, instructions = program
-        self._a = int(re.findall("\d+", a)[0])
-        self._b = int(re.findall("\d+", b)[0])
-        self._c = int(re.findall("\d+", c)[0])
+        self._a = int(re.findall(r"\d+", a)[0])
+        self._b = int(re.findall(r"\d+", b)[0])
+        self._c = int(re.findall(r"\d+", c)[0])
         self._instructions = list(map(int, instructions.split(" ")[1].split(",")))
 
     def __str__(self):

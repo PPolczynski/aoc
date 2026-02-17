@@ -1,5 +1,30 @@
 from collections import Counter
+from puzzle import Solution
 
+def _preprocess(input_data: str) -> tuple[list[int], list[int]]:
+    lines = input_data.splitlines()
+    list_a, list_b = zip(*(map(int, line.split()) for line in lines))
+    return list(list_a), list(list_b)
+
+def _part1(lists: tuple[list[int], list[int]]) -> any:
+    list_a, list_b = lists
+    locations = Locations(list_a, list_b)
+    return locations.get_list_distance()
+
+def _part2(lists: tuple[list[int], list[int]]) -> any:
+    list_a, list_b = lists
+    locations = Locations(list_a, list_b)
+    return locations.get_list_similarity()
+
+solution = Solution(
+    "Historian Hysteria",
+    "1",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Locations:
     def __init__(self, list_a: list[int], list_b: list[int]):

@@ -1,5 +1,26 @@
 from utils.trie import Trie
+from puzzle import Solution
 
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    onsen = Onsen(lines)
+    return onsen.get_possible_designs_count()
+
+def _part2(lines: list[str]) -> any:
+    onsen = Onsen(lines)
+    return onsen.get_all_possible_designs_count()
+
+solution = Solution(
+    "Linen Layout",
+    "19",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Onsen:
     def __init__(self, patterns_and_towels: list[str]):

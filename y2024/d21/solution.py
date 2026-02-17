@@ -1,8 +1,30 @@
 import re
 from collections import deque, defaultdict
+from puzzle import Solution
 
 _keypad_numeric = "NUMERIC"
 _keypad_directional = "DIRECTIONAL"
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    keypad = Keypads()
+    return keypad.get_codes_complexity(lines, 2)
+
+def _part2(lines: list[str]) -> any:
+    keypad = Keypads()
+    return keypad.get_codes_complexity(lines, 25)
+
+solution = Solution(
+    "Keypad Conundrum",
+    "21",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 _keypad = {
     "NUMERIC" : {
@@ -152,7 +174,8 @@ class Keypads:
     def get_codes_complexity(self, codes: list[str], number_of_robots: int) -> int:
         total = 0
         for code in codes:
-            digit = int(re.findall("\d+", code)[0])
+            digit = int(re.findall(r"\d+", code)[0])
             length = self._get_sequence_length(code, number_of_robots)
             total += digit * length
         return total
+    

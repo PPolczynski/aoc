@@ -1,6 +1,28 @@
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _galaxy = "#"
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(galaxy_map_lines: list[str]) -> any:
+    galaxy_map = GalaxyMap(galaxy_map_lines, 2)
+    return galaxy_map.get_galaxy_distance_sum()
+
+def _part2(galaxy_map_lines: list[str]) -> any:
+    galaxy_map = GalaxyMap(galaxy_map_lines, 1000000)
+    return galaxy_map.get_galaxy_distance_sum()
+
+solution = Solution(
+    "Cosmic Expansion",
+    "11",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class GalaxyMap:
     def __init__(self, galaxy_map: list[str], extension_rate: int):

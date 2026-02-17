@@ -1,9 +1,27 @@
+from puzzle import Solution as BaseSolution
 import re
-
 from utils.linked_list_node import LinkedListNode
 
+def _preprocess(input_data: str) -> str:
+    return input_data.strip()
 
-class Solution:
+def _part1(input_data: str) -> any:
+    return LensLibrary.get_hash_initialization_sequence(input_data)
+
+def _part2(input_data: str) -> any:
+    return LensLibrary.get_focusing_power_of_configuration(input_data)
+
+solution = BaseSolution(
+    "Lens Library",
+    "15",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
+class LensLibrary:
     @staticmethod
     def get_hash(string: str) -> int:
         current_value = 0
@@ -15,7 +33,7 @@ class Solution:
 
     @staticmethod
     def get_hash_initialization_sequence(initialization_sequence: str) -> int:
-        return sum([Solution.get_hash(instruction)
+        return sum([LensLibrary.get_hash(instruction)
                     for instruction in initialization_sequence.split(",")])
 
     @staticmethod
@@ -24,7 +42,7 @@ class Solution:
 
         for lens_configurations in lens_configurations.split(","):
             label = re.findall("\w+", lens_configurations)[0]
-            key = Solution.get_hash(label)
+            key = LensLibrary.get_hash(label)
             is_addition = lens_configurations.find("=") != -1
             lens = int(re.findall("\d+", lens_configurations)[0]) if is_addition else 0
             if key in boxes:

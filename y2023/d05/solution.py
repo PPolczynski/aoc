@@ -3,14 +3,16 @@ import math
 from puzzle import Solution as Puzzle
 
 
-def _part1(input_data: str) -> any:
-    lines = input_data.splitlines()
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+
+def _part1(lines: list[str]) -> any:
     almanac = Almanac(lines)
     return almanac.get_lowest_location()
 
 
-def _part2(input_data: str) -> any:
-    lines = input_data.splitlines()
+def _part2(lines: list[str]) -> any:
     almanac = Almanac(lines)
     return almanac.get_lowest_location_seed_ranges()
 
@@ -20,7 +22,9 @@ solution = Puzzle(
     "5",
     "2023",
     part1=_part1,
-    part2=_part2
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
 )
 
 class Almanac:

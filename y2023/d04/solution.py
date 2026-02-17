@@ -1,33 +1,37 @@
 import re
-from puzzle import Solution as Puzzle
+from puzzle import Solution
 
 
-def _part1(input_data: str) -> any:
-    lines = input_data.splitlines()
-    return Solution.get_scratchcards_score(lines)
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
 
 
-def _part2(input_data: str) -> any:
-    lines = input_data.splitlines()
-    return Solution.get_scratchcards_count(lines)
+def _part1(lines: list[str]) -> any:
+    return Scratchcards.get_scratchcards_score(lines)
 
 
-solution = Puzzle(
+def _part2(lines: list[str]) -> any:
+    return Scratchcards.get_scratchcards_count(lines)
+
+
+solution = Solution(
     "Scratchcards",
     "4",
     "2023",
     part1=_part1,
-    part2=_part2
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
 )
 
 
-class Solution:
+class Scratchcards:
 
     @staticmethod
     def get_scratchcards_score(scratchcards: list[str]) -> int:
         score = 0
         for scratchcard in scratchcards:
-            _, card_numbers, wining_numbers = Solution._get_lists_from_scratchcard(scratchcard)
+            _, card_numbers, wining_numbers = Scratchcards._get_lists_from_scratchcard(scratchcard)
             winning_cnt = len(set(card_numbers).intersection(set(wining_numbers)))
             if winning_cnt > 0:
                 score += pow(2, winning_cnt - 1)
@@ -38,7 +42,7 @@ class Solution:
         last_scratch_card_id = len(scratchcards) #ids are 1 based
         pre_processed_cards = dict()
         for scratchcard in scratchcards:
-            card_id, card_numbers, wining_numbers = Solution._get_lists_from_scratchcard(scratchcard)
+            card_id, card_numbers, wining_numbers = Scratchcards._get_lists_from_scratchcard(scratchcard)
             winning_cnt = len(set(card_numbers).intersection(set(wining_numbers)))
             pre_processed_cards[card_id] = winning_cnt
         cards = {}
