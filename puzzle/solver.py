@@ -12,8 +12,8 @@ class Solver:
 
     def solve(self, year: str | None = None, day: str | None = None):
         if not year and not day:
-            for y in self._events.values():
-                self._solve_year(y)
+            for y in sorted(self._events.keys()):
+                self._solve_year(self._events[y])
             return
 
         if year not in self._events:
@@ -30,9 +30,11 @@ class Solver:
             print(f"day {day} in year {year} not implemented")
             return
 
+        print(f"Year {year}")
         self._solve_day(d)
 
     def _solve_year(self, event: Event):
+        print(f"Year {event.get_year()}")
         for d in event.get_solutions():
             self._solve_day(d)
 
@@ -43,7 +45,7 @@ class Solver:
             return
 
         input_data = self._normalize(input_data)
-        print(f"Solving {day.subject()}")
+        print(f"Day {d}: {day.subject()}")
         self._solve_part("Part 1", input_data, day.part1)
         self._solve_part("Part 2", input_data, day.part2)
 
