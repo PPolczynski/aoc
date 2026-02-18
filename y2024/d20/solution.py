@@ -1,7 +1,7 @@
 import time
 from collections import defaultdict
-
 from utils.matrix import Matrix
+from puzzle import Solution
 
 
 _wall = "#"
@@ -9,6 +9,26 @@ _start = "S"
 _end = "E"
 _adjacent_fields = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    maze = Maze(lines, 2)
+    return maze.get_cheats_count(100)
+
+def _part2(lines: list[str]) -> any:
+    maze = Maze(lines, 20)
+    return maze.get_cheats_count(100)
+
+solution = Solution(
+    "Race Condition",
+    "20",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 def get_grid(start: tuple[int, int], distance: int):
     grid = []

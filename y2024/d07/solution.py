@@ -1,15 +1,40 @@
+from puzzle import Solution as BaseSolution
+
 def concat(x: int, y: int) -> int:
     return int(f"{x}{y}")
 
-class Solution:
+def _preprocess(input_data: str) -> list[tuple[int, list[int]]]:
+    data = []
+    for line in input_data.splitlines():
+        target, values = line.split(": ")
+        data.append((int(target), list(map(int, values.split(" ")))))
+    return data
+
+def _part1(data: list[tuple[int, list[int]]]) -> any:
+    return BridgeRepair.get_sum_valid_targets(data)
+
+def _part2(data: list[tuple[int, list[int]]]) -> any:
+    return BridgeRepair.get_sum_valid_targets_with_concat(data)
+
+solution = BaseSolution(
+    "Bridge Repair",
+    "7",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
+class BridgeRepair:
 
     @staticmethod
     def get_sum_valid_targets(data: list[tuple[int, list[int]]]) -> int:
-        return sum([target if Solution.is_valid(target, values) else 0 for target, values in data])
+        return sum([target if BridgeRepair.is_valid(target, values) else 0 for target, values in data])
 
     @staticmethod
     def is_valid(target: int, values: list[int]) -> int:
-        return Solution._is_valid(values[0], 1, target, values)
+        return BridgeRepair._is_valid(values[0], 1, target, values)
 
     @staticmethod
     def _is_valid(current_value: int, idx: int, target: int, values: list[int]) -> bool:
@@ -18,17 +43,17 @@ class Solution:
         elif idx >= len(values):
             return current_value == target
         else:
-            return (Solution._is_valid(current_value + values[idx], idx + 1, target, values)
-                    or Solution._is_valid(current_value * values[idx], idx + 1, target, values))
+            return (BridgeRepair._is_valid(current_value + values[idx], idx + 1, target, values)
+                    or BridgeRepair._is_valid(current_value * values[idx], idx + 1, target, values))
 
     @staticmethod
     def get_sum_valid_targets_with_concat(data: list[tuple[int, list[int]]]) -> int:
-        return sum([target if Solution.is_valid_with_concat(target, values) else 0
+        return sum([target if BridgeRepair.is_valid_with_concat(target, values) else 0
                     for target, values in data])
 
     @staticmethod
     def is_valid_with_concat(target: int, values: list[int]) -> int:
-        return Solution._is_valid_with_concat(values[0], 1, target, values)
+        return BridgeRepair._is_valid_with_concat(values[0], 1, target, values)
 
     @staticmethod
     def _is_valid_with_concat(current_value: int, idx: int, target: int, values: list[int]) -> bool:
@@ -37,13 +62,13 @@ class Solution:
         elif idx >= len(values):
             return current_value == target
         else:
-            return (Solution._is_valid_with_concat(current_value + values[idx], idx + 1, target, values)
-                    or Solution._is_valid_with_concat(current_value * values[idx], idx + 1, target, values)
-                    or Solution._is_valid_with_concat(concat(current_value, values[idx]), idx + 1, target, values))
+            return (BridgeRepair._is_valid_with_concat(current_value + values[idx], idx + 1, target, values)
+                    or BridgeRepair._is_valid_with_concat(current_value * values[idx], idx + 1, target, values)
+                    or BridgeRepair._is_valid_with_concat(concat(current_value, values[idx]), idx + 1, target, values))
 
     @staticmethod
     def get_sum_valid_found(data: list[tuple[int, list[int]]], is_with_concat: bool) -> int:
-        return sum([target if Solution.is_valid_found(target, values, is_with_concat) else 0
+        return sum([target if BridgeRepair.is_valid_found(target, values, is_with_concat) else 0
                     for target, values in data])
 
     @staticmethod

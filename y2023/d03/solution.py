@@ -1,7 +1,35 @@
+from puzzle import Solution
+
 _empty_field = "."
 _gear_symbol = "*"
 _adjacent_fields = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
 _adjacent_numbers_cnt_gear_ration = 2
+
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+
+def _part1(lines: list[str]) -> any:
+    gear_schematic = GearSchematic(lines)
+    return gear_schematic.get_sum_part_numbers()
+
+
+def _part2(lines: list[str]) -> any:
+    gear_schematic = GearSchematic(lines)
+    return gear_schematic.get_sum_gear_ratio()
+
+
+solution = Solution(
+    "Gear Ratios",
+    "3",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
 
 class GearSchematic:
     def __init__(self, schematic: list[str]):

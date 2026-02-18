@@ -1,6 +1,7 @@
 import enum
 import functools
 from typing import Optional
+from puzzle import Solution
 
 _card_strength = {
     "A": 13,
@@ -38,6 +39,27 @@ strength_map = {
     "2111": HandStrength.ONE_PAIR,
     "11111": HandStrength.HIGH_CARD
 }
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    card_game = CardGame(lines, False)
+    return card_game.get_winnings()
+
+def _part2(lines: list[str]) -> any:
+    card_game = CardGame(lines, True)
+    return card_game.get_winnings()
+
+solution = Solution(
+    "Camel Cards",
+    "7",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class CardGame:
     def __init__(self, hands: list[str], is_with_jokers: bool):

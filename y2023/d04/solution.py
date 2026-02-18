@@ -1,12 +1,37 @@
 import re
+from puzzle import Solution
 
-class Solution:
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+
+def _part1(lines: list[str]) -> any:
+    return Scratchcards.get_scratchcards_score(lines)
+
+
+def _part2(lines: list[str]) -> any:
+    return Scratchcards.get_scratchcards_count(lines)
+
+
+solution = Solution(
+    "Scratchcards",
+    "4",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
+
+class Scratchcards:
 
     @staticmethod
     def get_scratchcards_score(scratchcards: list[str]) -> int:
         score = 0
         for scratchcard in scratchcards:
-            _, card_numbers, wining_numbers = Solution._get_lists_from_scratchcard(scratchcard)
+            _, card_numbers, wining_numbers = Scratchcards._get_lists_from_scratchcard(scratchcard)
             winning_cnt = len(set(card_numbers).intersection(set(wining_numbers)))
             if winning_cnt > 0:
                 score += pow(2, winning_cnt - 1)
@@ -17,7 +42,7 @@ class Solution:
         last_scratch_card_id = len(scratchcards) #ids are 1 based
         pre_processed_cards = dict()
         for scratchcard in scratchcards:
-            card_id, card_numbers, wining_numbers = Solution._get_lists_from_scratchcard(scratchcard)
+            card_id, card_numbers, wining_numbers = Scratchcards._get_lists_from_scratchcard(scratchcard)
             winning_cnt = len(set(card_numbers).intersection(set(wining_numbers)))
             pre_processed_cards[card_id] = winning_cnt
         cards = {}
@@ -34,9 +59,9 @@ class Solution:
     @staticmethod
     def _get_lists_from_scratchcard(scratchcard: str) -> tuple[int, list[int], list[int]]:
         card_parts = scratchcard.split(": ")
-        card_id = int(re.findall("\d+", card_parts[0])[0])
+        card_id = int(re.findall(r"\d+", card_parts[0])[0])
         card_numbers, wining_numbers = card_parts[1].split(" | ")
         def _numbers_str_to_list(numbers: str) -> list[int]:
-            return [int(num) for num in re.findall("\d+", numbers)]
+            return [int(num) for num in re.findall(r"\d+", numbers)]
         return card_id, _numbers_str_to_list(card_numbers), _numbers_str_to_list(wining_numbers)
 

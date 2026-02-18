@@ -1,5 +1,31 @@
 import math
 
+from puzzle import Solution as Puzzle
+
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+
+def _part1(lines: list[str]) -> any:
+    almanac = Almanac(lines)
+    return almanac.get_lowest_location()
+
+
+def _part2(lines: list[str]) -> any:
+    almanac = Almanac(lines)
+    return almanac.get_lowest_location_seed_ranges()
+
+
+solution = Puzzle(
+    "If You Give A Seed A Fertilizer",
+    "5",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Almanac:
     def __init__(self, almanac: list[str]):

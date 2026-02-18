@@ -1,7 +1,31 @@
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _single_rock = "O"
 _empty_space = "."
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(platform: list[str]) -> any:
+    reflector = Reflector(platform)
+    reflector.tilt_north()
+    return reflector.get_total_load_north_beams()
+
+def _part2(platform: list[str]) -> any:
+    reflector = Reflector(platform)
+    reflector.perform_n_cycles(1000000000)
+    return reflector.get_total_load_north_beams()
+
+solution = Solution(
+    "Parabolic Reflector Dish",
+    "14",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Reflector:
     def __init__(self, platform: list[str]):

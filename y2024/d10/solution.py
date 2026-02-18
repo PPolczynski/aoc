@@ -1,9 +1,31 @@
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _empty_space = "."
 _start = "0"
 _end = "9"
 _directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(topo: list[str]) -> any:
+    hiking_guide = HikingGuide(topo)
+    return hiking_guide.get_trailheads_score_sum()
+
+def _part2(topo: list[str]) -> any:
+    hiking_guide = HikingGuide(topo)
+    return hiking_guide.get_trailheads_score_distinct_paths_sum()
+
+solution = Solution(
+    "Hoof It",
+    "10",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class HikingGuide:
     def __init__(self, topographic_map: list[str]):

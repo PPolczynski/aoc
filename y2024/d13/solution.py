@@ -1,8 +1,30 @@
 import re
+from puzzle import Solution
 
 _max_button_press = 100
 _a_press_price = 3
 _b_press_price = 1
+
+def _preprocess(input_data: str) -> list[list[str]]:
+    return [m.splitlines() for m in input_data.split("\n\n")]
+
+def _part1(machines: list[list[str]]) -> any:
+    claw_game = ClawGame(machines)
+    return claw_game.get_fewest_token_to_win()
+
+def _part2(machines: list[list[str]]) -> any:
+    claw_game = ClawGame(machines)
+    return claw_game.get_fewest_token_to_win_with_conversion(10000000000000)
+
+solution = Solution(
+    "Claw Contraption",
+    "13",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class ClawGame:
     def __init__(self, machines: list[list[str]]):
@@ -16,9 +38,9 @@ class ClawGame:
 
 class ClawMachine:
     def __init__(self, machine: list[str], a_press_price: int, b_press_price: int, button_press_limit: int):
-        self._button_a = tuple(map(int, re.findall("\d+", machine[0])))
-        self._button_b = tuple(map(int, re.findall("\d+", machine[1])))
-        self._prize= tuple(map(int, re.findall("\d+", machine[2])))
+        self._button_a = tuple(map(int, re.findall(r"\d+", machine[0])))
+        self._button_b = tuple(map(int, re.findall(r"\d+", machine[1])))
+        self._prize= tuple(map(int, re.findall(r"\d+", machine[2])))
         self._a_press_price = a_press_price
         self._b_press_price = b_press_price
         self._button_press_limit = button_press_limit

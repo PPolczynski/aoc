@@ -1,4 +1,27 @@
+from puzzle import Solution
+
 _MAX_DIFFERENCE = 3
+
+def _preprocess(input_data: str) -> list[list[int]]:
+    return [[int(level) for level in line.split()] for line in input_data.splitlines()]
+
+def _part1(reports: list[list[int]]) -> any:
+    reactor_reports = ReactorReports(reports)
+    return reactor_reports.get_safe_reports_count()
+
+def _part2(reports: list[list[int]]) -> any:
+    reactor_reports = ReactorReports(reports)
+    return reactor_reports.get_safe_reports_count_with_tolerance()
+
+solution = Solution(
+    "Red-Nosed Reports",
+    "2",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class ReactorReports:
     def __init__(self, reports: list[list[int]]):

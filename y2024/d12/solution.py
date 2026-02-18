@@ -1,7 +1,29 @@
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 _edge_offset = [(0.5, -0.5), (0.5, 0.5), (-0.5, 0.5), (-0.5, -0.5)]
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    garden = Garden(lines)
+    return garden.get_fencing_cost()
+
+def _part2(lines: list[str]) -> any:
+    garden = Garden(lines)
+    return garden.get_fencing_cost_bulk()
+
+solution = Solution(
+    "Garden Groups",
+    "12",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Garden:
     def __init__(self, garden: list[str]):

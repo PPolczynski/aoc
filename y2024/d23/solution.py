@@ -1,5 +1,26 @@
 from collections import defaultdict
+from puzzle import Solution
 
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    lan_party = LanParty(lines)
+    return lan_party.get_group_connection_filtered()
+
+def _part2(lines: list[str]) -> any:
+    lan_party = LanParty(lines)
+    return lan_party.get_largest_set()
+
+solution = Solution(
+    "LAN Party",
+    "23",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class LanParty:
     def __init__(self, lines: list[str]):

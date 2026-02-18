@@ -1,3 +1,24 @@
+from puzzle import Solution
+
+def _preprocess(input_data: str) -> str:
+    return input_data.strip()
+
+def _part1(stones: str) -> any:
+    return BlinkingStones.count_stones(stones, 25)
+
+def _part2(stones: str) -> any:
+    return BlinkingStones.count_stones(stones, 75)
+
+solution = Solution(
+    "Plutonian Pebbles",
+    "11",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
 class BlinkingStones:
     @staticmethod
     def count_stones(stones: str, number_of_blinks: int) -> int:

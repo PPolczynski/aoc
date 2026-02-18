@@ -1,4 +1,40 @@
-class Gates:
+from puzzle import Solution
+
+def _preprocess(input_data: str) -> tuple[list[str], list[str]]:
+    parts = input_data.split("\n\n")
+    if len(parts) < 2:
+        return [], []
+    known_str, graph_str = parts
+    return known_str.splitlines(), graph_str.splitlines()
+
+def _part1(data: tuple[list[str], list[str]]) -> any:
+    known, graph = data
+    if not known or not graph:
+        return 0
+    gates = CrossedWires(known, graph)
+    return gates.get_z_gets_decimal()
+
+def _part2(data: tuple[list[str], list[str]]) -> any:
+    #https://en.wikipedia.org/wiki/Adder_(electronics)
+    #rules to follow to fix the graph manually
+    """
+    known, graph = data
+    gates = CrossedWires(known, graph)
+    return gates.part2()
+    """
+    return "Commented out for CLI - requires manual intervention"
+
+solution = Solution(
+    "Crossed Wires",
+    "24",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
+class CrossedWires:
     def __init__(self, known, graph):
         self._known_gates = dict()
         for k in known:

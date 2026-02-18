@@ -1,6 +1,39 @@
 import math
+import re
+
+from puzzle import Solution as Puzzle
+
+def _preprocess(data: str):
+    lines = []
+    for line in data.splitlines():
+        lines.append(re.findall(r"\d+", line.rstrip()))
+    races = list(zip([int(x) for x in lines[0]], [int(x) for x in lines[1]]))
+    return races
+
+def _preprocess_part2(data: str):
+    lines = []
+    for line in data.splitlines():
+        lines.append(re.findall(r"\d+", line.rstrip()))
+    races = [(int("".join(lines[0])), int("".join(lines[1])))]
+    return races
+
+def _part1(races) -> any:
+    return Solution.get_product_ways_to_beat_time(races)
 
 
+def _part2(races) -> any:
+    return Solution.get_product_ways_to_beat_time(races)
+
+
+solution = Puzzle(
+    "Wait For It",
+    "6",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess_part2
+)
 class Solution:
     @staticmethod
     def get_product_ways_to_beat_time(races: list[tuple[int, int]]) -> int:

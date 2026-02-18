@@ -1,3 +1,31 @@
+from puzzle import Solution
+
+def _preprocess(input_data: str) -> tuple[list[str], list[str]]:
+    rules_str, orders_str = input_data.split("\n\n")
+    rules = rules_str.splitlines()
+    orders = orders_str.splitlines()
+    return rules, orders
+
+def _part1(data: tuple[list[str], list[str]]) -> any:
+    rules, orders = data
+    printer = Printer(rules)
+    return printer.get_correctly_ordered_middle_sum(orders)
+
+def _part2(data: tuple[list[str], list[str]]) -> any:
+    rules, orders = data
+    printer = Printer(rules)
+    return printer.get_incorrectly_ordered_middle_sum(orders)
+
+solution = Solution(
+    "Print Queue",
+    "5",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
 class Node:
     def __init__(self):
         self.next = set()

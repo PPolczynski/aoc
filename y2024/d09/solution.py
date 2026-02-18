@@ -1,6 +1,28 @@
 from utils.linked_list_node import LinkedListNode
+from puzzle import Solution
 
 _empty_space = "."
+
+def _preprocess(input_data: str) -> str:
+    return input_data.strip()
+
+def _part1(disk_space_sizes: str) -> any:
+    disk_space = DiskSpace(disk_space_sizes)
+    return disk_space.get_fragemented_checksum()
+
+def _part2(disk_space_sizes: str) -> any:
+    disk_space = DiskSpace(disk_space_sizes)
+    return disk_space.get_fragemented_files_checksum()
+
+solution = Solution(
+    "Disk Fragmenter",
+    "9",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class DiskSpace:
 

@@ -1,6 +1,6 @@
 from collections import deque
-
 from utils.matrix import Matrix
+from puzzle import Solution
 
 _wall = "#"
 _box = "O"
@@ -22,6 +22,34 @@ _wider = {
     "O" : "[]",
     "#" : "##"
 }
+
+def _preprocess(input_data: str) -> tuple[list[str], list[str]]:
+    map_str, moves_str = input_data.split("\n\n")
+    warehouse_map = map_str.splitlines()
+    moves = moves_str.splitlines()
+    return warehouse_map, moves
+
+def _part1(data: tuple[list[str], list[str]]) -> any:
+    warehouse_map, moves = data
+    warehouse = Warehouse(warehouse_map)
+    warehouse.apply_moves(moves)
+    return warehouse.get_boxes_coordinates_sum()
+
+def _part2(data: tuple[list[str], list[str]]) -> any:
+    warehouse_map, moves = data
+    warehouse = Warehouse(warehouse_map, True)
+    warehouse.apply_moves(moves)
+    return warehouse.get_boxes_coordinates_sum()
+
+solution = Solution(
+    "Warehouse Woes",
+    "15",
+    "2024",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
 
 class Warehouse:
     def __init__(self, warehouse: list[str],  is_wide: bool = False):

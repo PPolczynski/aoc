@@ -1,24 +1,45 @@
-class Solution:
+from puzzle import Solution as BaseSolution
+
+def _preprocess(input_data: str) -> list[list[str]]:
+    return [m.splitlines() for m in input_data.split("\n\n")]
+
+def _part1(vulcano_maps: list[list[str]]) -> any:
+    return PointOfIncidence.get_reflection_sum(vulcano_maps)
+
+def _part2(vulcano_maps: list[list[str]]) -> any:
+    return PointOfIncidence.get_reflection_sum_of_by(vulcano_maps, 1)
+
+solution = BaseSolution(
+    "Point of Incidence",
+    "13",
+    "2023",
+    part1=_part1,
+    part2=_part2,
+    part1_preprocess=_preprocess,
+    part2_preprocess=_preprocess
+)
+
+class PointOfIncidence:
 
     @staticmethod
     def get_reflection(vulcano_map: list[str]):
-        row = Solution._search_for_reflection(vulcano_map)
+        row = PointOfIncidence._search_for_reflection(vulcano_map)
         if row != -1:
             return row * 100
 
         column_organized = list(zip(*vulcano_map))
-        column = Solution._search_for_reflection(column_organized)
+        column = PointOfIncidence._search_for_reflection(column_organized)
         if column != -1:
             return column
 
     @staticmethod
     def get_reflection_of_by(vulcano_map: list[str], of_by: int):
-        row = Solution._search_for_reflection_of_by(vulcano_map, of_by)
+        row = PointOfIncidence._search_for_reflection_of_by(vulcano_map, of_by)
         if row != -1:
             return row * 100
 
         column_organized = list(zip(*vulcano_map))
-        column = Solution._search_for_reflection_of_by(column_organized, of_by)
+        column = PointOfIncidence._search_for_reflection_of_by(column_organized, of_by)
         if column != -1:
             return column
 
@@ -49,12 +70,12 @@ class Solution:
     def get_reflection_sum(vulcano_maps: list[list[str]]) -> int:
         total = 0
         for vulcano_map in vulcano_maps:
-            total += Solution.get_reflection(vulcano_map)
+            total += PointOfIncidence.get_reflection(vulcano_map)
         return total
 
     @staticmethod
     def get_reflection_sum_of_by(vulcano_maps: list[list[str]], of_by: int) -> int:
         total = 0
         for vulcano_map in vulcano_maps:
-            total += Solution.get_reflection_of_by(vulcano_map, of_by)
+            total += PointOfIncidence.get_reflection_of_by(vulcano_map, of_by)
         return total

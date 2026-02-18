@@ -1,3 +1,27 @@
+from puzzle import Solution
+
+def _preprocess(input_data: str) -> list[str]:
+    return input_data.splitlines()
+
+def _part1(lines: list[str]) -> any:
+    cube_game = CubeGame([("red", 12), ("green", 13), ("blue", 14)])
+    return cube_game.get_sum_possible_id(lines)
+
+def _part2(lines: list[str]) -> any:
+    cube_game = CubeGame([("red", 12), ("green", 13), ("blue", 14)])
+    return cube_game.get_sum_of_power(lines)
+
+solution = Solution(
+        "Cube Conundrum",
+        "2",
+        "2023",
+        part1=_part1,
+        part2=_part2,
+        part1_preprocess=_preprocess,
+        part2_preprocess=_preprocess
+)
+
+
 class CubeGame:
     def __init__(self, cubes: list[tuple[str, int]]):
         self._cubes = dict()
