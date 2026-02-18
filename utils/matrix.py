@@ -1,11 +1,15 @@
+ADJACENT_FIELDS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+DIAGONAL_FIELDS = [(-1, 1), (1, 1),(1, -1), (-1, -1)]
+ADJACENT_W_DIAGONAL_FIELDS = ADJACENT_FIELDS + DIAGONAL_FIELDS
+
 class Matrix:
     def __init__(self, matrix, default=""):
         self._matrix = matrix
-        if isinstance(matrix[0], str):
+        if matrix and isinstance(matrix[0], str):
             self._matrix = [list(s) for s in matrix]
         self._default = default
-        self.len_x = len(self._matrix[0])
         self.len_y = len(self._matrix)
+        self.len_x = len(self._matrix[0]) if self.len_y else 0
 
     def __getitem__(self, coordinates: tuple[int, int]):
         x, y = coordinates
@@ -31,6 +35,20 @@ class Matrix:
                 coordinates.append(coordinate)
         return coordinates
 
+    def find_first(self, value) -> tuple[int, int]:
+        for _value, coordinate in self:
+            if value == _value:
+                return coordinate
+
+    def adjacent(self, coordinates: tuple[int, int], include_diagonal=False):
+        x,y = coordinates
+        adjacent = ADJACENT_W_DIAGONAL_FIELDS if include_diagonal else ADJACENT_FIELDS
+        for dx, dy in adjacent:
+            c = (x + dx, y + dy)
+            if self.is_out_of_bounds(c):
+                continue
+            else:
+                yield self._matrix[c[1]][c[0]], c
 
     def __iter__(self):
         self._y = 0
