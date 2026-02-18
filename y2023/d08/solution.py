@@ -41,7 +41,7 @@ class IslandMap:
         graph = dict()
         ghost_start = []
         for line in lines:
-            value, left, right = re.findall("\w+", line)
+            value, left, right = re.findall(r"\w+", line)
             graph[value] = (left, right, value.endswith(_ghost_end))
             if value.endswith(_ghost_start):
                 ghost_start.append(value)

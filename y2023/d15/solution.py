@@ -41,10 +41,10 @@ class LensLibrary:
         boxes = dict()
 
         for lens_configurations in lens_configurations.split(","):
-            label = re.findall("\w+", lens_configurations)[0]
+            label = re.findall(r"\w+", lens_configurations)[0]
             key = LensLibrary.get_hash(label)
             is_addition = lens_configurations.find("=") != -1
-            lens = int(re.findall("\d+", lens_configurations)[0]) if is_addition else 0
+            lens = int(re.findall(r"\d+", lens_configurations)[0]) if is_addition else 0
             if key in boxes:
                 current = boxes[key]
                 while current.next and current.value[0] != label:
