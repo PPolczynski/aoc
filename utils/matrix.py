@@ -1,6 +1,7 @@
 ADJACENT_FIELDS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-DIAGONAL_FIELDS = [(-1, 1), (1, 1),(1, -1), (-1, -1)]
+DIAGONAL_FIELDS = [(-1, 1), (1, 1), (1, -1), (-1, -1)]
 ADJACENT_W_DIAGONAL_FIELDS = ADJACENT_FIELDS + DIAGONAL_FIELDS
+
 
 class Matrix:
     def __init__(self, matrix, default=""):
@@ -41,7 +42,7 @@ class Matrix:
                 return coordinate
 
     def adjacent(self, coordinates: tuple[int, int], include_diagonal=False):
-        x,y = coordinates
+        x, y = coordinates
         adjacent = ADJACENT_W_DIAGONAL_FIELDS if include_diagonal else ADJACENT_FIELDS
         for dx, dy in adjacent:
             c = (x + dx, y + dy)
@@ -49,6 +50,10 @@ class Matrix:
                 continue
             else:
                 yield self._matrix[c[1]][c[0]], c
+
+    def apply(self, coordinates: list[tuple[int, int]], value):
+        for c in coordinates:
+            self[c] = value
 
     def __iter__(self):
         self._y = 0
