@@ -36,11 +36,16 @@ _edges = {
     "L": "-",
     "R": "-"
 }
+_hex_to_direction = {
+    "0": "R",
+    "1": "D",
+    "2": "L",
+    "3": "U"
+}
 
 
 @dataclass(frozen=True)
 class Instruction:
-    color: str
     direction: str
     move: tuple[int, int]
     steps: int
@@ -50,10 +55,25 @@ def _preprocess(input_data: str) -> list[Instruction]:
     lines = input_data.splitlines()
     instructions = []
     for line in lines:
-        direction, steps, color = line.split(" ")
+        direction, steps, _ = line.split(" ")
         instructions.append(
             Instruction(
-                color[1:-1],
+                direction,
+                _move_map[direction],
+                int(steps)))
+    return instructions
+
+
+def _preprocess_part_2(input_data: str) -> list[Instruction]:
+    lines = input_data.splitlines()
+    instructions = []
+    for line in lines:
+        _, _, color = line.split(" ")
+        v = color[2:-1]
+        steps = int(v[:-1], 16)
+        direction = _hex_to_direction[v[-1:]]
+        instructions.append(
+            Instruction(
                 direction,
                 _move_map[direction],
                 int(steps)))
@@ -64,8 +84,29 @@ def _part1(lines: list[Instruction]) -> any:
     return simulate(lines)
 
 
-def _part2(lines: list[Instruction]) -> any:
-    pass
+def _part2(instructions: list[Instruction]) -> any:
+    x, y = 0, 0
+    points = [(x, y)]
+    bounds = 0
+    for ins in instructions:
+        dx, dy = ins.move
+        x, y = x + (ins.steps * dx), y + (ins.steps * dy)
+        bounds += ins.steps
+        points.append((x, y))
+
+    # https://en.wikipedia.org/wiki/Shoelace_formula
+    area = 0
+    for idx, point in enumerate(points):
+        x, y = point
+        # for the last point the next one is first
+        next_y = points[idx + 1][1] if idx + 1 < len(points) else points[0][1]
+        # for the first the previous point is last -1 wraps us to last element of list
+        previous_y = points[idx - 1][1]
+        area += x * (next_y - previous_y)
+    area = abs(area) // 2
+    # https://en.wikipedia.org/wiki/Pick%27s_theorem
+    inside = area - bounds // 2 + 1
+    return inside + bounds
 
 
 def simulate(instructions: list[Instruction]):
@@ -112,5 +153,5 @@ solution = Solution(
     part1=_part1,
     part2=_part2,
     part1_preprocess=_preprocess,
-    part2_preprocess=_preprocess
+    part2_preprocess=_preprocess_part_2
 )
