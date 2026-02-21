@@ -1,8 +1,10 @@
+import copy
 import re
 from dataclasses import dataclass
 from enum import Enum
 
 from puzzle import Solution
+from utils.range import Range
 
 _ACCEPT = "A"
 _REJECT = "R"
@@ -32,6 +34,27 @@ class Part:
         return self.x + self.m + self.a + self.s
 
 
+@dataclass
+class PartRange:
+    d: dict[str, Range]
+
+    # left included
+    def split(self, field, value) -> list["PartRange"]:
+        out = []
+        r = self.d[field]
+        smaller = copy.deepcopy(self.d)
+        s, e = r.start, value
+        if s <= e:
+            smaller[field] = Range(s, e)
+            out.append(PartRange(smaller))
+        bigger = copy.deepcopy(self.d)
+        s, e = value + 1, r.end
+        if s <= e:
+            bigger[field] = Range(s, e)
+            out.append(PartRange(bigger))
+        return out
+
+
 class Operation(Enum):
     NONE = 0
     GREATER = 1
@@ -55,6 +78,27 @@ class Rule:
         else:
             return part_value < self.value, self.outcome
 
+    def apply_over_range(self, part: PartRange) -> (bool, str):
+        if self.operation == Operation.NONE:
+            return [(True, self.outcome, part)]
+        part_range = part.d[self.field]
+        if self.operation == Operation.GREATER:
+            if part_range.start > self.value:  # entire range greater than
+                return [(True, self.outcome, part)]
+            elif part_range.end <= self.value:  # entire range smaller than
+                return [(False, "", part)]
+            else:
+                smaller_eq, bigger = part.split(self.field, self.value)
+                return [(False, "", smaller_eq), (True, self.outcome, bigger)]
+        else:
+            if part_range.end < self.value:  # entire range smaller than
+                return [(True, self.outcome, part)]
+            elif part_range.start >= self.value:  # entire range bigger than
+                return [(False, "", part)]
+            else:
+                smaller, bigger_eq = part.split(self.field, self.value - 1)
+                return [(True, self.outcome, smaller), (False, "", bigger_eq)]
+
 
 @dataclass(frozen=True)
 class Workflow:
@@ -68,6 +112,21 @@ class Workflow:
                 return outcome
         # last rule is always condition less but just in case
         return self.rules[-1].outcome
+
+    def resolve_range(self, part: PartRange):
+        out = []
+        ranges = [part]
+        for rule in self.rules:
+            tmp = []
+            for r in ranges:
+                results = rule.apply_over_range(r)
+                for terminate, outcome, new_r in results:
+                    if terminate:
+                        out.append((outcome, new_r))
+                    else:
+                        tmp.append(new_r)
+            ranges = tmp
+        return out
 
 
 def _part1(data: tuple[dict[str, Workflow], list[Part]]) -> int:
@@ -88,8 +147,37 @@ def _part1(data: tuple[dict[str, Workflow], list[Part]]) -> int:
     return total
 
 
-def _part2():
-    pass
+def _part2(data: tuple[dict[str, Workflow], list[Part]]) -> int:
+    workflows, _ = data
+    start = PartRange(
+        {
+            "x": Range(1, 4000),
+            "m": Range(1, 4000),
+            "a": Range(1, 4000),
+            "s": Range(1, 4000),
+        }
+    )
+    out = []
+    current = [(_START, start)]
+    while len(current) > 0:
+        tmp = []
+        for label, r in current:
+            results = workflows[label].resolve_range(r)
+            for next_label, next_range in results:
+                if next_label == _ACCEPT:
+                    out.append(next_range)
+                elif next_label == _REJECT:
+                    continue
+                else:
+                    tmp.append((next_label, next_range))
+        current = tmp
+    total = 0
+    for part_range in out:
+        c = 1
+        for r in part_range.d.values():
+            c *= len(r)
+        total += c
+    return total
 
 
 def _preprocess(data) -> tuple[dict[str, Workflow], list[Part]]:
