@@ -1,6 +1,9 @@
 import time
+import traceback
+
 from .event import Event
 from .solution import Solution
+
 
 class Solver:
     def __init__(self, client):
@@ -58,7 +61,8 @@ class Solver:
             print(f"[{name}]: {value} time: {duration:.6f}s")
         except Exception as e:
             print(f"[{name}] error: {e}")
+            print(traceback.format_exc())
 
     @staticmethod
     def _normalize(i: str) -> str:
-        return i#.replace(""").strip("")
+        return i  # .replace(""").strip("")
