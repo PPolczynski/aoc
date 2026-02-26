@@ -20,6 +20,7 @@ from .d18 import solution as day18
 from .d19 import solution as day19
 from .d20 import solution as day20
 from .d21 import solution as day21
+from .d23 import solution as day23
 
 event = Event([day1.solution,
                day2.solution,
@@ -41,4 +42,5 @@ event = Event([day1.solution,
                day18.solution,
                day19.solution,
                day20.solution,
-               day21.solution, ])
+               day21.solution,
+               day23.solution, ])
