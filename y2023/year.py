@@ -21,26 +21,9 @@ from .d19 import solution as day19
 from .d20 import solution as day20
 from .d21 import solution as day21
 from .d23 import solution as day23
+from .d24 import solution as day24
 
-event = Event([day1.solution,
-               day2.solution,
-               day3.solution,
-               day4.solution,
-               day5.solution,
-               day6.solution,
-               day7.solution,
-               day8.solution,
-               day9.solution,
-               day10.solution,
-               day11.solution,
-               day12.solution,
-               day13.solution,
-               day14.solution,
-               day15.solution,
-               day16.solution,
-               day17.solution,
-               day18.solution,
-               day19.solution,
-               day20.solution,
-               day21.solution,
-               day23.solution, ])
+event = Event([day1.solution, day2.solution, day3.solution, day4.solution, day5.solution, day6.solution, day7.solution,
+               day8.solution, day9.solution, day10.solution, day11.solution, day12.solution, day13.solution,
+               day14.solution, day15.solution, day16.solution, day17.solution, day18.solution, day19.solution,
+               day20.solution, day21.solution, day23.solution, day24.solution, ])
