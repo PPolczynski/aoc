@@ -24,7 +24,7 @@ class Rotation:
             clicks %= _range_end
             clicks -= full_rotations  # because of extra click between 99 and 0
         if clicks < 0:
-            full_rotations -= 1 # extra clicks between 99 0 has division to be one extra
+            full_rotations -= 1  # extra clicks between 99 0 has division to be one extra
             clicks += _range_end + 1  # +1 because 99 to 0 is extra click that was not taken
         return Rotation(direction, clicks, full_rotations)
 
@@ -48,6 +48,7 @@ class Rotation:
         elif passed and not starts_at_target:
             passes_from_clicks = 1
         return next_position, self.full_rotations + passes_from_clicks
+
 
 def _preprocess(data: str) -> list[Rotation]:
     return [Rotation.from_line(line) for line in data.splitlines()]
