@@ -8,6 +8,7 @@ _range_end = 99
 _range_start = 0
 _start_position = 50
 _target = 0
+_base = 100
 
 
 @dataclass
@@ -20,22 +21,18 @@ class Rotation:
     def from_line(cls, line: str) -> 'Rotation':
         direction, clicks, full_rotations = _direction_to_int[line[:1]], int(line[1:]), 0
         if clicks > _range_end:
-            full_rotations = clicks // _range_end
-            clicks %= _range_end
-            clicks -= full_rotations  # because of extra click between 99 and 0
-        if clicks < 0:
-            full_rotations -= 1  # extra clicks between 99 0 has division to be one extra
-            clicks += _range_end + 1  # +1 because 99 to 0 is extra click that was not taken
+            full_rotations = clicks // _base
+            clicks %= _base
         return Rotation(direction, clicks, full_rotations)
 
     def rotate_from(self, position: int) -> tuple[int, bool]:
         next_position = position + self.direction * self.clicks
         passed = False
         if next_position > _range_end:
-            next_position = next_position - _range_end - 1
+            next_position = next_position - _base
             passed = True
         elif next_position < _range_start:
-            next_position = _range_end + next_position + 1
+            next_position = _base + next_position
             passed = True
         return next_position, passed
 
