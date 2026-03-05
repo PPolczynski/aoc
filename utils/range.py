@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 
-@dataclass(frozen=True)
+@dataclass()
 class Range:
     start: int
     end: int
