@@ -21,6 +21,30 @@ def _part1(grid: Matrix) -> int:
 
 
 def _part2(grid: Matrix) -> int:
+    graph = dict()
+
+    for v, c in grid:
+        if v == _ROLL:
+            graph[c] = set()
+            for _, n_c in filter(lambda x: x[0] == _ROLL, grid.adjacent(c, include_diagonal=True)):
+                graph[c].add(n_c)
+
+    removed = 0
+    while True:
+        to_remove = list(filter(lambda k: len(graph[k]) < _max_neighbours, graph.keys()))
+        for c in to_remove:
+            for n_c in graph[c]:
+                graph[n_c].remove(c)
+            del graph[c]
+        if len(to_remove) == 0:
+            break
+        else:
+            removed += len(to_remove)
+
+    return removed
+
+
+def _part2_brute_force(grid: Matrix) -> int:
     removed = 0
     while True:
         to_remove = set()
