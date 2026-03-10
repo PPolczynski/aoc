@@ -36,19 +36,19 @@ class Range:
             return NotImplemented
         return (self.start, self.end) < (other.start, other.end)
 
+    @staticmethod
+    def simplify_ranges(ranges: List['Range']) -> List['Range']:
+        if not ranges:
+            return []
 
-def simplify_ranges(ranges: List[Range]) -> List[Range]:
-    if not ranges:
-        return []
-    
-    sorted_ranges = sorted(ranges)
-    simplified = [sorted_ranges[0]]
-    
-    for current in sorted_ranges[1:]:
-        last = simplified[-1]
-        if last.overlaps(current):
-            simplified[-1] = last.merge(current)
-        else:
-            simplified.append(current)
-            
-    return simplified
+        sorted_ranges = sorted(ranges)
+        simplified = [sorted_ranges[0]]
+
+        for current in sorted_ranges[1:]:
+            last = simplified[-1]
+            if last.overlaps(current):
+                simplified[-1] = last.merge(current)
+            else:
+                simplified.append(current)
+
+        return simplified
