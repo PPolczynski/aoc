@@ -27,29 +27,41 @@ class Equation:
         op = Operation.ADD if lines[-1][idx_start:idx_end].strip() == Operation.ADD.value else Operation.MULTIPLY
         return cls(values, op)
 
+    @classmethod
+    def from_lines_by_columns(cls, lines: list[str], idx_start: int, idx_end: int) -> 'Equation':
+        values = []
+        for idx in range(idx_start, idx_end):
+            v = 0
+            for line in lines[:-1]:
+                if line[idx] != " ":
+                    v *= 10
+                    v += int(line[idx])
+            values.append(v)
+        op = Operation.ADD if lines[-1][idx_start:idx_end].strip() == Operation.ADD.value else Operation.MULTIPLY
+        return cls(values, op)
 
-def _preprocess(data: str) -> list[Equation]:
-    lines = data.splitlines()
-    start_idx = 0
-    equations = []
-    for idx in range(len(lines[0])):
-        if all(line[idx] == " " for line in lines):
-            equations.append(Equation.from_lines(lines, start_idx, idx))
-            start_idx = idx + 1
-    equations.append(Equation.from_lines(lines, start_idx, len(lines[0])))
-    return equations
+
+def _preprocess(equation_factory):
+    def fn(data: str):
+        lines = data.splitlines()
+        start_idx = 0
+        equations = []
+        for idx in range(len(lines[0])):
+            if all(line[idx] == " " for line in lines):
+                equations.append(equation_factory(lines, start_idx, idx))
+                start_idx = idx + 1
+        equations.append(equation_factory(lines, start_idx, len(lines[0])))
+        return equations
+
+    return fn
 
 
 def _part1(equations: list[Equation]) -> int:
     return sum([equation.result() for equation in equations])
 
 
-def _part2(equations: list[Equation]) -> int:
-    pass
-
-
 solution = Solution("Trash Compactor", "6", "2025",
                     part1=_part1,
-                    part2=_part2,
-                    part1_preprocess=_preprocess,
-                    part2_preprocess=_preprocess)
+                    part2=_part1,
+                    part1_preprocess=_preprocess(Equation.from_lines),
+                    part2_preprocess=_preprocess(Equation.from_lines_by_columns))
