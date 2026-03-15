@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List
 
 
 @dataclass()
@@ -37,7 +37,7 @@ class Range:
         return (self.start, self.end) < (other.start, other.end)
 
     @staticmethod
-    def simplify_ranges(ranges: List['Range']) -> List['Range']:
+    def simplify_ranges(ranges: List['Range'], join_adjacent: bool = False) -> List['Range']:
         if not ranges:
             return []
 
@@ -46,8 +46,8 @@ class Range:
 
         for current in sorted_ranges[1:]:
             last = simplified[-1]
-            if last.overlaps(current):
-                simplified[-1] = last.merge(current)
+            if last.overlaps(current) or (join_adjacent and last.end + 1 >= current.start):
+                simplified[-1] = Range(last.start, max(current.end, last.end))
             else:
                 simplified.append(current)
 

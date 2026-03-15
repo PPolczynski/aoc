@@ -1,5 +1,5 @@
 import unittest
-from .range import Range, simplify_ranges
+from .range import Range
 
 
 class RangeTestCase(unittest.TestCase):
@@ -119,7 +119,34 @@ class RangeTestCase(unittest.TestCase):
         ]
         for name, ranges, want in tests:
             with self.subTest(name=name):
-                self.assertEqual(simplify_ranges(ranges), want)
+                self.assertEqual(Range.simplify_ranges(ranges), want)
+
+    def test_simplify_ranges_join_adjacent(self):
+        tests = [
+            (
+                "adjacent",
+                [Range(1, 2), Range(3, 4)],
+                [Range(1, 4)],
+            ),
+            (
+                "adjacent out of order",
+                [Range(5, 6), Range(3, 4), Range(1, 2)],
+                [Range(1, 6)],
+            ),
+            (
+                "some adjacent some disjoint",
+                [Range(1, 2), Range(3, 4), Range(6, 7), Range(8, 9)],
+                [Range(1, 4), Range(6, 9)],
+            ),
+            (
+                "overlapping and adjacent",
+                [Range(1, 5), Range(6, 10), Range(10, 15)],
+                [Range(1, 15)],
+            ),
+        ]
+        for name, ranges, want in tests:
+            with self.subTest(name=name, join_adjacent=True):
+                self.assertEqual(Range.simplify_ranges(ranges, join_adjacent=True), want)
 
 
 if __name__ == '__main__':
