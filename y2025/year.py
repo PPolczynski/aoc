@@ -8,6 +8,7 @@ from .d06 import solution as day6
 from .d07 import solution as day7
 from .d08 import solution as day8
 from .d09 import solution as day9
+from .d10 import solution as day10
 
 event = Event([day1.solution, day2.solution, day3.solution, day4.solution, day5.solution, day6.solution, day7.solution,
-               day8.solution, day9.solution, ])
+               day8.solution, day9.solution, day10.solution, ])
