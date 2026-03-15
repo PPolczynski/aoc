@@ -4,8 +4,6 @@ from puzzle import Solution
 from utils.polygon import Polygon
 from utils.range import Range
 
-_N_LARGEST_CIRCUITS = 3
-
 
 def _preprocess(data: str) -> list[tuple[int, int]]:
     pattern = r"\d+"
